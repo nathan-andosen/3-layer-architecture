@@ -8,7 +8,7 @@ Build a web application that has a clear architecture that will make it easy to 
 
 This will be accomplished via the following necessities:
 
-* Separation of concern via [horizontal](#-horizontal-separation) and vertical separation (more detail below),
+* Separation of concern via [horizontal](#horizontal-separation) and vertical separation (more detail below),
 * Improved store / state management that is immutable, reactive and the flow of data is unidirectional,
 * Tested,
 * Modular

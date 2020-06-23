@@ -43,11 +43,30 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 
 #### App / View layer
 
+* The UI of the application
+* Will no doubt use a framework like: Angular, React, Vue.
+* Uses reactive state _(from domain/store layer)_ to display data
+
 #### Application Sevices layer
+
+* Services needed by the application, some examples:
+  * Api service for ajax request
+  * Services to manipulate state data for the view, such as, make a users name all uppercase
+  * Authentication / Authorization services
+* Utility functions
 
 #### Domain & Store layer
 
+* Business logic via services & models
+* Represents the state (structure of the data)
+* Consists of entities & models
+* Holds the state in a store that is immutable and reactive
+
 ### Vertical separation
+
+Vertical separation will organize the app into features. Below is an example of our application that we have created in this repo. The app simply allows users to signin to the app, use the TDEE calculator to detemine how many calories a day they should be eating. It also allows the user to save those calculations as profiles and manage these profiles. So in our example, we break our app into 3 features (vertical separation): User signin / signup, TDEE calculator & Manage profiles.
+
+![Separation](/doc-assets/3-layer-separation.png)
 
 # Domain driven design
 
@@ -64,6 +83,10 @@ __Rule of thumb:__ Bind data and intelligence _(business logic)_ and set boundar
 #### Business Logic
 
 > Business rules that determine how data can be created, stored and updated
+
+#### Container / Smart component
+
+> Will usually contain business logic, not directly, this should be done via services that come from the domain layer. Will pass data to presentation components and react to events from these components. Container components are also used as top level routable components (pages).
 
 #### DDD
 
@@ -92,6 +115,10 @@ __Rule of thumb:__ Bind data and intelligence _(business logic)_ and set boundar
 #### Modular / Module
 
 > A module is an independent unit used to construct a more complex structure. Modular design is an architecture that emplopys multiple modules to build a complex application
+
+#### Presentation / Dumb component
+
+> Only concerns itself with presentation of UI. Data is usually passed to presentation components via attributes. Will usually delegate user interaction up to container components via events. Presentation components are great for re-usability. An example would be a button component, it doesn't deal with business logic, it just delegates click events to container components.
 
 #### Repository
 

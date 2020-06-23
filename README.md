@@ -1,4 +1,4 @@
-# 3-layer-architecture
+# 3 Layer Architecture
 
 A layered architecture for building web applications.
 
@@ -37,7 +37,7 @@ The value of separation of concern:
 * __Increased development time__ - team members can work on individual separate components.
 * __Improved bug fixing__ - if responsibilities are properly allocated to the right component, it becomes easier to identify where issues are occurring and where new features should be added.
 
-### Horizontal separation
+## Horizontal separation
 
 Horizontal separation is achieved via layers. We will use 3 layers to separate our application.
 
@@ -62,7 +62,12 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 * Consists of entities & models
 * Holds the state in a store that is immutable and reactive
 
-### Vertical separation
+### Guidelines / Rules about layers
+
+* The domain & application services layer know nothing about the framework in the view layer, do not add view framework specific code in these layers.
+* Try and keep the view layer as thin as possible, only UI related code should go here.
+
+## Vertical separation
 
 Vertical separation will organize the app into features. Below is an example of our application that we have created in this repo. The app simply allows users to signin to the app, use the TDEE calculator to detemine how many calories a day they should be eating. It also allows the user to save those calculations as profiles and manage these profiles. So in our example, we break our app into 3 features (vertical separation): User signin / signup, TDEE calculator & Manage profiles.
 
@@ -73,6 +78,19 @@ Vertical separation will organize the app into features. Below is an example of 
 > You model your business using [Entities](#entity) (the ID matters) and [Value Objects](#model-(value-object)) (the values matter). You use [Repositories](#repository) to retrieve and store them. You create them with the help of [Factories](#factory). If an object is too complex for a single class, you’ll create [Aggregates](#aggregate) that will bind Entities & Value Objects under the same root. If a business logic doesn’t belong to a given object, you’ll define [Services](#service) that will manipulate the involved elements. Eventually, when the [state](#state) of the business changes (a change that matters to business experts), you’ll publish Domain Events to communicate the change. _Gérald Croës_ [Reference link](https://medium.com/the-coding-matrix/ddd-101-the-5-minute-tour-7a3037cf53b8)
 
 __Rule of thumb:__ Bind data and intelligence _(business logic)_ and set boundaries _(horizontal/vertical separation)_ to keep them apart.
+
+# Common web app functionality
+
+_Below is a list of common features / functionality that most web apps have and what layer it will be located in._
+
+* Domain models, Domain services & business logic __(Domain)__
+* User permissions to access resources / features of the app __(Domain)__
+* User authentication / authorization __(Application services)__
+* Ajax requests __(Application services)__
+* Utility functions __(Application services)__
+* Routing __(App / View)__
+* Shared UI components (design system) __(App / View)__
+* Views, templates & components __(App / View)__
 
 # Glossary
 

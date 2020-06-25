@@ -109,9 +109,9 @@ _Below is a list of common features / functionality that most web apps have and 
 
 > Business rules that determine how data can be created, stored and updated
 
-#### Container / Smart component
+#### Container component (Smart component)
 
-> Will usually contain business logic, not directly, this should be done via services that come from the domain layer. Will pass data to [presentation components](#presentation-/-dumb-component) and react to events from these components. Container components are also used as top level routable components (pages).
+> Will usually contain business logic, not directly, this should be done via services that come from the domain layer. Will pass data to [presentation components](#presentation-component-(dumb-component)) and react to events from these components. Container components are also used as top level routable components (pages).
 
 #### DDD
 
@@ -141,9 +141,9 @@ _Below is a list of common features / functionality that most web apps have and 
 
 > A module is an independent unit used to construct a more complex structure. Modular design is an architecture that emplopys multiple modules to build a complex application
 
-#### Presentation / Dumb component
+#### Presentation component (Dumb component)
 
-> Only concerns itself with presentation of UI. Data is usually passed to presentation components via attributes. Will usually delegate user interaction up to container components via events. Presentation components are great for re-usability. An example would be a button component, it doesn't deal with business logic, it just delegates click events to [container components](#container-/-smart-component).
+> Only concerns itself with presentation of UI. Data is usually passed to presentation components via attributes. Will usually delegate user interaction up to container components via events. Presentation components are great for re-usability. An example would be a button component, it doesn't deal with business logic, it just delegates click events to [container components](#container-component-(smart-component)).
 
 #### Repository
 

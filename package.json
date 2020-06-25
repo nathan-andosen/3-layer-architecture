@@ -1,0 +1,24 @@
+{
+  "name": "layered-architecture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:ng": "bash ./scripts/dev-ng.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathan-andosen/layered-architecture.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/nathan-andosen/layered-architecture/issues"
+  },
+  "homepage": "https://github.com/nathan-andosen/layered-architecture#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@angular/cli": "^10.0.0",
+    "tslint": "^5.20.1"
+  }
+}

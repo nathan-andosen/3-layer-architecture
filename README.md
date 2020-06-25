@@ -71,6 +71,8 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 
 Vertical separation will organize the app into features. Below is an example of our application that we have created in this repo. The app simply allows users to signin to the app, use the TDEE calculator to detemine how many calories a day they should be eating. It also allows the user to save those calculations as profiles and manage these profiles. So in our example, we break our app into 3 features (vertical separation): User signin / signup, TDEE calculator & Manage profiles.
 
+_Example of our app with horizontal and vertical separation:_
+
 ![Separation](/doc-assets/3-layer-separation.png)
 
 # Domain driven design

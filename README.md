@@ -4,7 +4,7 @@ A layered architecture for building web applications.
 
 ### Goal
 
-Build a web application that has a clear architecture that will make it easy to maintain, develop and test by all team members.
+Build a web application that has a clear architecture that will make it easier to maintain, develop and test by all team members.
 
 This will be accomplished via the following necessities:
 
@@ -22,6 +22,11 @@ This will be accomplished via the following necessities:
   * Where do I put this piece of code?
   * How do I modify data?
   * What changed my data?
+
+### Benefits
+
+* __Decoupling from the view framework__ - A lot of the code is written outside of the view framework / library (Angular, React, VueJs), making it easier to upgrade or switch to a different view framework. You can see in this example repo, we have three different views (view-angular, view-react, view-vuejs) that all use the same _domain_ and _app-services_ layers. As well, there are many more benefits to [Separation of concern](#separation-of-concern) as you will read below.
+* __Minimal dependencies used__ - We basically only have 2 dependencies: __rxjs__ to handle our ajax requests & reactive state management and our __view framework__. These two dependencies give us a lot of functionality. Keeping dependencies low makes it easier to maintain and upgrade applications. Obviously, as your application grows, you will add more dependencies.
 
 # Separation of concern
 
@@ -64,7 +69,7 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 
 ### Guidelines / Rules about layers
 
-* The domain & application services layer know nothing about the framework in the view layer, do not add view framework specific code in these layers.
+* The domain & application services layer know nothing about the view framework / library in the view layer, do not add view framework specific code in these layers.
 * Try and keep the view layer as thin as possible, only UI related code should go here.
 
 ## Vertical separation

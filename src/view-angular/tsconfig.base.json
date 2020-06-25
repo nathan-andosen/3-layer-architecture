@@ -19,12 +19,12 @@
       "es2018",
       "dom"
     ],
-    // "paths": {
-    //   "@core/*": ["src/app/core/*"],
-    //   "@shared/*": ["src/app/shared/*"],
-    //   "@features/*": ["src/app/features/*"],
-    //   // "@domain/*": ["../domain/*"],
-    //   // "@app-services/*": ["../app-services/*"]
-    // }
+    "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@features/*": ["src/app/features/*"],
+      "@domain/*": ["../domain/*"],
+      "@app-services/*": ["../app-services/*"]
+    }
   }
 }

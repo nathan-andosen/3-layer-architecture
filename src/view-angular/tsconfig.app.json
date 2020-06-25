@@ -11,8 +11,8 @@
   // ],
   "include": [
     "src/**/*.ts",
-    // "../domain/**/*.ts",
-    // "../app-services/**/*.ts"
+    "../domain/**/*.ts",
+    "../app-services/**/*.ts"
   ],
   "exclude": [
     "src/test.ts",

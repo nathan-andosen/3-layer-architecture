@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
-
+import { UserService } from '@domain/services/user';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -11,4 +11,9 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class SignInPageComponent {
  
+
+  constructor(private userSrv: UserService) {
+    const user = this.userSrv.createUser();
+    console.log(user.test());
+  }
 }

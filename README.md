@@ -111,7 +111,7 @@ _Below is a list of common features / functionality that most web apps have and 
 
 #### Container / Smart component
 
-> Will usually contain business logic, not directly, this should be done via services that come from the domain layer. Will pass data to presentation components and react to events from these components. Container components are also used as top level routable components (pages).
+> Will usually contain business logic, not directly, this should be done via services that come from the domain layer. Will pass data to [presentation components](#presentation-/-dumb-component) and react to events from these components. Container components are also used as top level routable components (pages).
 
 #### DDD
 
@@ -143,7 +143,7 @@ _Below is a list of common features / functionality that most web apps have and 
 
 #### Presentation / Dumb component
 
-> Only concerns itself with presentation of UI. Data is usually passed to presentation components via attributes. Will usually delegate user interaction up to container components via events. Presentation components are great for re-usability. An example would be a button component, it doesn't deal with business logic, it just delegates click events to container components.
+> Only concerns itself with presentation of UI. Data is usually passed to presentation components via attributes. Will usually delegate user interaction up to container components via events. Presentation components are great for re-usability. An example would be a button component, it doesn't deal with business logic, it just delegates click events to [container components](#container-/-smart-component).
 
 #### Repository
 
@@ -151,7 +151,7 @@ _Below is a list of common features / functionality that most web apps have and 
 
 #### Service
 
-> When an operation does not conceptually belong to a single object, you will use services to perform that operation / logic. Methods to perform operations with one or more models.
+> When an operation does not conceptually belong to a single object / entity, you will use services to perform that operation / logic. Methods to perform operations with one or more models.
 
 #### State
 

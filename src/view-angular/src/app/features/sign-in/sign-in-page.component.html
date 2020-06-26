@@ -1,3 +1,20 @@
 <div class="sign-in-page">
   <h1>Sign in page</h1>
+
+  <button (click)="navigateToTdeeCalculator()">Go to TDEE calculator</button>
+
+  <div style="padding-top: 1rem;">
+    <button (click)="createUser()">Create user</button>
+
+    <h3>Our user:</h3>
+    <p>
+      <span>Username: {{ user?.state.username }}</span>
+    </p>
+    <div *ngIf="user">
+      <input
+        [ngModel]="user?.state.username"
+        (input)="user?.updateUsername($event.target.value)" />
+    </div>
+  </div>
+  
 </div>

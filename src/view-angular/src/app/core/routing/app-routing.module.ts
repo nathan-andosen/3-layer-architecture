@@ -19,7 +19,15 @@ const routes: Routes = [
     loadChildren: () => import('../../features/tdee-calculator/tdee-calculator.module')
     .then(m => m.TdeeCalculatorModule),
     data: {
-      name: 'tdee-calculator'
+      name: 'tdee'
+    }
+  },
+  {
+    path: 'profiles',
+    loadChildren: () => import('../../features/manage-profiles/manage-profiles.module')
+    .then(m => m.ManageProfilesModule),
+    data: {
+      name: 'profiles'
     }
   }
 ];

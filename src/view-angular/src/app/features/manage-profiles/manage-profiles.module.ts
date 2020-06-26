@@ -1,31 +1,24 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 
-import { SignInPageComponent } from './sign-in-page.component';
+import { ManageProfilesPageComponent } from './manage-profiles-page.component';
 
 
 @NgModule({
   declarations: [
-    SignInPageComponent
+    ManageProfilesPageComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: '',
-        redirectTo: '/user/signin'
-      },
-      {
-        path: 'signin',
-        component: SignInPageComponent
+        component: ManageProfilesPageComponent
       }
     ])
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SignInModule {}
+export class ManageProfilesModule {}

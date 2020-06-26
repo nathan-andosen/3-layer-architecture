@@ -11,5 +11,10 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class TdeeCalculatorPageComponent {
  
 
+  constructor(private router: Router) {}
+
+  navigateToManageProfiles() {
+    this.router.navigate(['profiles']);
+  }
   
 }

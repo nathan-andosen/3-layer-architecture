@@ -1,11 +1,11 @@
 import { DI } from '@thenja/DI';
-import { UserFactory, UserModel } from '../../models/user';
+import { UserFactory, UserModel, IUser } from '@domain/models/user';
 
 export class UserService {
   @DI.Inject(UserFactory)
   private userFactory: UserFactory;
 
-  createUser(): UserModel {
-    return this.userFactory.create();
+  createUser(data: IUser = null): UserModel {
+    return this.userFactory.create(data);
   }
 }

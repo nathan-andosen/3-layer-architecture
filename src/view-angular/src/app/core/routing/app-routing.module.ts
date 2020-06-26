@@ -13,6 +13,14 @@ const routes: Routes = [
     data: {
       name: 'sign-in'
     }
+  },
+  {
+    path: 'tdee',
+    loadChildren: () => import('../../features/tdee-calculator/tdee-calculator.module')
+    .then(m => m.TdeeCalculatorModule),
+    data: {
+      name: 'tdee-calculator'
+    }
   }
 ];
 

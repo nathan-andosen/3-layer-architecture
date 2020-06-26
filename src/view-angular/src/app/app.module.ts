@@ -7,17 +7,8 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 
 import { DI } from '@thenja/DI';
-
-
-
 import { UserService } from '@domain/services/user';
 
-// import { EventManager } from '@thenja/event-manager';
-
-// import { UserService } from '../domain/services/user/user.service';
-
-// console.log(EventManager);
-// console.log(DI);
 
 @NgModule({
   declarations: [

@@ -16,6 +16,4 @@ export abstract class ObservableStoreModel<T> {
   constructor(data: T = null) {
     this.store = new ObservableStore(data);
   }
-
-  
 }

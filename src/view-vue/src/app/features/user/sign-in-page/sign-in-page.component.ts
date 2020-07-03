@@ -1,8 +1,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import {
-  AjaxRequestService,
-} from '@app-services/api/ajax-request.service';
-import { UserModel } from '@domain/features/user';
+import { UserModel } from '@domain/models/user';
+import { UserService } from '@domain/services/user';
+import { DI } from '@thenja/DI';
 
 
 @Component({
@@ -12,19 +11,14 @@ export default class SignInPageComponent extends Vue {
   public user: UserModel;
   public title!: string;
 
+  @DI.Inject(UserService)
+  private userSrv: UserService;
+
   constructor() {
     super();
-
     this.title = 'Hello!';
-    this.user = new UserModel();
-    this.user.setData({
-      firstname: 'Vue',
-      lastname: 'Test',
-    });
-
-    setTimeout(() => {
-      this.user.updateFirstname('Nathan');
-    }, 2000);
+    this.user = this.userSrv.createUser({ id: '123', username: 'clark-kent' });
+    this.user = new UserModel({ id: '123', username: 'clark-kent' });
   }
 }
 

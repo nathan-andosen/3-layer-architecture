@@ -13,6 +13,7 @@ This will be accomplished via the following necessities:
 * Tested,
 * [Modular](#modular-/-module)
 * [Domain driven design](#domain-driven-design)
+* [Composition over Inheritance](#composition-over-inhertitance)
 
 ### Why?
 
@@ -85,6 +86,40 @@ _Example of our app with horizontal and vertical separation:_
 > You model your business using [Entities](#entity) (the ID matters) and [Value Objects](#model-(value-object)) (the values matter). You use [Repositories](#repository) to retrieve and store them. You create them with the help of [Factories](#factory). If an object is too complex for a single class, you’ll create [Aggregates](#aggregate) that will bind Entities & Value Objects under the same root. If a business logic doesn’t belong to a given object, you’ll define [Services](#service) that will manipulate the involved elements. Eventually, when the [state](#state) of the business changes (a change that matters to business experts), you’ll publish Domain Events to communicate the change. _Gérald Croës_ [Reference link](https://medium.com/the-coding-matrix/ddd-101-the-5-minute-tour-7a3037cf53b8)
 
 __Rule of thumb:__ Bind data and intelligence _(business logic)_ and set boundaries _(horizontal/vertical separation)_ to keep them apart.
+
+# Composition over inhertitance
+
+### Composition: (has-a relationship)
+
+_Basic defintion:_ combine objects into a more complex one (root object).
+
+* Benefits:
+  * Strong encapsulation
+  * Easier to maintain
+  * Loosely coupled, offers more flexibility
+* Examples:
+  * Car _has-a_ engine (not car _is-a_ engine)
+
+### Inheritance (is-a relationship)
+
+* Disadvantages
+  * Tightly coupled with parent class, making it harded to maintain and update code
+* Examples:
+  * Dog _is-a_ Animal
+
+## Determine what to use:
+
+Most of the time, you should aim to use composition because of the stronger benefits it comes with. But there may be the odd occasion where inheritance might make more sense.
+
+* __Ask the question:__
+  * _Object 1_ is-a _Object 2_? or _Object 1_ has-a _Object 2_?
+  * If you were to use inhertiance, does inheriting violate encapsulation ?
+    * For example, if you wanted to create a _Stack_ class, you would not extend the _Array_ class so that you can inherit the _push()_ & _pop()_ methods. Because now your _Stack_ class also has the methods like _sort()_ & _reverse()_, which should not be possible in a _Stack_.
+
+### Drawback of composition:
+
+* Methods being provided by individual classes may have to be implemented in the root class, even if they are just forwarding methods. However, this allows for better encapsulation, no developers should be using your individual classes, only your root class is using them, so you can modify them without breaking outside code.
+  * There are some work arounds to this, like _mixins_ ([example](https://gist.github.com/nathan-andosen/0402d31c77abac1fc60d87d6e66b9366)), however, sometimes this can just over complicate things, it may be better to just repeat your code (this will violate the DRY principle, but sometimes the KISS principle out weighs the DRY principle).
 
 # Common web app functionality
 

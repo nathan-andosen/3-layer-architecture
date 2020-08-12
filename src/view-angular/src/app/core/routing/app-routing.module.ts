@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from './route-guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     path: 'tdee',
     loadChildren: () => import('../../features/tdee-calculator/tdee-calculator.module')
     .then(m => m.TdeeCalculatorModule),
+    canActivate: [AuthGuard],
     data: {
       name: 'tdee'
     }
@@ -26,6 +28,7 @@ const routes: Routes = [
     path: 'profiles',
     loadChildren: () => import('../../features/manage-profiles/manage-profiles.module')
     .then(m => m.ManageProfilesModule),
+    canActivate: [AuthGuard],
     data: {
       name: 'profiles'
     }

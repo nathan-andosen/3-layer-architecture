@@ -6,15 +6,17 @@ import { UserModel } from '@domain/models/user';
 import { UserService } from '@domain/services/user';
 import { DI } from '@thenja/DI';
 
+
 class App extends React.Component<{}, undefined> {
   user: UserModel;
 
+  @DI.Inject(UserService)
+  userSrv: UserService;
 
   constructor(props: any) {
     super(props);
 
-    const userSrv: UserService = DI.getService(UserService);
-    this.user = userSrv.createUser({
+    this.user = this.userSrv.createUser({
       id: '123',
       username: 'clark-kent'
     });

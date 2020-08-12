@@ -16,5 +16,15 @@
         (input)="user?.updateUsername($event.target.value)" />
     </div>
   </div>
+
+  <div>
+    <h3>Sign in</h3>
+    <p style="font-style: italic;">Use admin/admin to sign in.</p>
+    <label for="inpUsername">Username</label>
+    <input type="text" id="inpUsername" name="inpUsername">
+    <label for="inpPassword">Password</label>
+    <input type="password" id="inpPassword" name="inpPassword">
+    <button (click)="signIn()">Sign in</button>
+  </div>
   
 </div>

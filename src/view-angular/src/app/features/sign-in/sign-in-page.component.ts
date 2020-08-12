@@ -28,4 +28,8 @@ export class SignInPageComponent {
   createUser() {
     this.user = this.userSrv.createUser({ id: '123', username: 'clark-kent' });
   }
+
+  signIn() {
+    
+  }
 }

@@ -23,8 +23,23 @@ export class UserService {
     return Promise.resolve(this.signedInUser);
   }
 
+  signOut(): Promise<void> {
+    this.signedInUser = null;
+    return this.authSrv.signOut();
+  }
+
 
   userIsSignedIn(): boolean {
     return (this.signedInUser) ? true : false;
+  }
+
+
+  checkUserHasSession(): Promise<UserModel> {
+    const userData = this.authSrv.getUserFromSession();
+    if (userData) {
+      this.signedInUser = this.userFactory.create(userData);
+      return Promise.resolve(this.signedInUser);
+    }
+    return Promise.resolve(null);
   }
 }

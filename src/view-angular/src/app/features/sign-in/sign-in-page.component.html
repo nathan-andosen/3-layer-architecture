@@ -1,7 +1,7 @@
 <div class="sign-in-page">
   <h1>Sign in page</h1>
 
-  <button (click)="navigateToTdeeCalculator()">Go to TDEE calculator</button>
+  <!-- <button (click)="navigateToTdeeCalculator()">Go to TDEE calculator</button>
 
   <div style="padding-top: 1rem;">
     <button (click)="createUser()">Create user</button>
@@ -15,16 +15,28 @@
         [ngModel]="user?.state.username"
         (input)="user?.updateUsername($event.target.value)" />
     </div>
-  </div>
+  </div> -->
 
   <div>
-    <h3>Sign in</h3>
-    <p style="font-style: italic;">Use admin/admin to sign in.</p>
-    <label for="inpUsername">Username</label>
-    <input type="text" id="inpUsername" name="inpUsername">
-    <label for="inpPassword">Password</label>
-    <input type="password" id="inpPassword" name="inpPassword">
-    <button (click)="signIn()">Sign in</button>
+    <form [formGroup]="signinForm" (ngSubmit)="signinOnSubmit()">
+      <h3>Sign in</h3>
+      <div>
+        <label>
+          Username:
+          <input type="text" formControlName="username" required>
+        </label>
+      </div>
+      <div>
+        <label>
+          Password:
+          <input type="password" formControlName="password" required>
+        </label>
+      </div>
+      <button type="submit">Signin</button>
+    </form>
+    <div *ngIf="signinErrorMsg.length">
+      <span style="color: red;">{{ signinErrorMsg }}</span>
+    </div>
   </div>
   
 </div>

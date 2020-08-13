@@ -3,9 +3,11 @@ import {
   NgModule,
   Optional,
   SkipSelf,
-  ModuleWithProviders
+  ModuleWithProviders,
+  APP_INITIALIZER
 } from '@angular/core';
 import { AppRoutingModule } from './routing/app-routing.module';
+import { AppInitialisationService, init_app } from './services';
 
 
 @NgModule({
@@ -14,7 +16,15 @@ import { AppRoutingModule } from './routing/app-routing.module';
     AppRoutingModule
   ],
   declarations: [],
-  providers: [],
+  providers: [
+    AppInitialisationService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: init_app,
+      deps: [AppInitialisationService],
+      multi: true
+    }
+  ],
   exports: [
     CommonModule,
     AppRoutingModule

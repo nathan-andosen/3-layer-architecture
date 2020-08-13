@@ -12,8 +12,9 @@ export class AuthService {
     return null;
   }
 
-  signOut() {
-
+  signOut(): Promise<void> {
+    sessionStorage.removeItem('user-session');
+    return Promise.resolve();
   }
 
   signIn(username: string, password: string): Promise<ISignInResponse> {
@@ -21,12 +22,14 @@ export class AuthService {
       // fake some api request to a server
       setTimeout(() => {
         if (username === 'admin' && username === password) {
-          resolve({ user: {
+          const userData = {
             id: '123',
             username: username,
             firstname: 'Admin',
             lastname: ''
-          }});
+          };
+          this.saveInSessionStorage(userData);
+          resolve({ user: userData});
         } else {
           resolve({ error: 'Incorrect username or password' });
         }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
+import { UserService } from '@domain/services/user';
 
 @Component({
   selector: 'app-tdee-calculator-page',
@@ -11,10 +12,21 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class TdeeCalculatorPageComponent {
  
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userSrv: UserService) {}
 
   navigateToManageProfiles() {
     this.router.navigate(['profiles']);
+  }
+
+  signout() {
+    this.userSrv.signOut()
+    .then(() => {
+      this.router.navigate(['/user/signin']);
+    })
+    .catch((err) => {
+      console.log(err);
+      this.router.navigate(['/user/signin']);
+    });
   }
   
 }

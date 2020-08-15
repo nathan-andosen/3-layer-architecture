@@ -29,8 +29,8 @@ export class SignInPageComponent {
 
   private buildSigninForm() {
     this.signinForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['admin', Validators.required],
+      password: ['admin', Validators.required]
     });
   }
 

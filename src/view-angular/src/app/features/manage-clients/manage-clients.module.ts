@@ -4,12 +4,12 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
-import { ManageProfilesPageComponent } from './manage-profiles-page.component';
+import { ManageClientsPageComponent } from './manage-clients-page.component';
 
 
 @NgModule({
   declarations: [
-    ManageProfilesPageComponent
+    ManageClientsPageComponent
   ],
   imports: [
     CommonModule,
@@ -17,10 +17,10 @@ import { ManageProfilesPageComponent } from './manage-profiles-page.component';
     RouterModule.forChild([
       {
         path: '',
-        component: ManageProfilesPageComponent
+        component: ManageClientsPageComponent
       }
     ])
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ManageProfilesModule {}
+export class ManageClientsModule {}

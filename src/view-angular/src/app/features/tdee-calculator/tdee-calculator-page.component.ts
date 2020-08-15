@@ -15,7 +15,7 @@ export class TdeeCalculatorPageComponent {
   constructor(private router: Router, private userSrv: UserService) {}
 
   navigateToManageProfiles() {
-    this.router.navigate(['profiles']);
+    this.router.navigate(['clients']);
   }
 
   signout() {

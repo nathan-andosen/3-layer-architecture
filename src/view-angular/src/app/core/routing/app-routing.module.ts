@@ -25,12 +25,12 @@ const routes: Routes = [
     }
   },
   {
-    path: 'profiles',
-    loadChildren: () => import('../../features/manage-profiles/manage-profiles.module')
-    .then(m => m.ManageProfilesModule),
+    path: 'clients',
+    loadChildren: () => import('../../features/manage-clients/manage-clients.module')
+    .then(m => m.ManageClientsModule),
     canActivate: [AuthGuard],
     data: {
-      name: 'profiles'
+      name: 'clients'
     }
   }
 ];

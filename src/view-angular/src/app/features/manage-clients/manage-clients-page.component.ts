@@ -8,11 +8,11 @@ import { UserModel } from '@domain/models/user';
 import { hasValue, isNumber } from '@app-services/utils';
 
 @Component({
-  selector: 'app-manage-profiles-page',
-  templateUrl: './manage-profiles-page.component.html',
-  styleUrls: ['./manage-profiles-page.component.scss']
+  selector: 'app-manage-clients-page',
+  templateUrl: './manage-clients-page.component.html',
+  styleUrls: ['./manage-clients-page.component.scss']
 })
-export class ManageProfilesPageComponent {
+export class ManageClientsPageComponent {
   userDetailsForm: FormGroup;
   private user: UserModel;
 

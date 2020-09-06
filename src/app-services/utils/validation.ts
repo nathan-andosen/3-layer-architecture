@@ -1,21 +1,45 @@
 
-export const isSet = (val: any): boolean => {
-  return (typeof val !== 'undefined' && val !== null);
+/**
+ * Determine if object is set (not null and not undefined)
+ *
+ * @param {*} obj
+ * @returns {boolean}
+ */
+export const isSet = (obj: any): boolean => {
+  return (typeof obj !== 'undefined' && obj !== null);
 };
 
 
-export const isString = (val: any): boolean => {
-  if (!isSet(val)) return false;
-  return (typeof val === 'string' || val instanceof String);
+/**
+ * Determine if object is a string
+ *
+ * @param {*} obj
+ * @returns {boolean}
+ */
+export const isString = (obj: any): boolean => {
+  if (!isSet(obj)) return false;
+  return (typeof obj === 'string' || obj instanceof String);
 };
 
 
-export const isNumber = (val: any): boolean => {
-  if (!isSet(val)) return false;
-  return (!(isNaN(parseFloat(val)) || !isFinite(val)));
+/**
+ * Determine if object is a number
+ *
+ * @param {*} obj
+ * @returns {boolean}
+ */
+export const isNumber = (obj: any): boolean => {
+  if (!isSet(obj)) return false;
+  return (!(isNaN(parseFloat(obj)) || !isFinite(obj)));
 };
 
 
-export const hasValue = (val: any): boolean => {
-  return (isSet(val) && (isString(val) && val.length > 0));
+/**
+ * Determine if string is not empty
+ *
+ * @param {*} obj
+ * @returns {boolean}
+ */
+export const stringIsNotEmpty = (obj: any): boolean => {
+  return (isSet(obj) && (isString(obj) && obj.length > 0));
 };

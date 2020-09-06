@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { DI } from '@thenja/DI';
 import { UserService } from '@domain/services/user';
+import { AjaxRequestService } from '@app-services/ajax';
 
 
 @NgModule({
@@ -24,6 +25,9 @@ import { UserService } from '@domain/services/user';
     {
       provide: UserService,
       useValue: DI.getService(UserService)
+    },{
+      provide: AjaxRequestService,
+      useValue: DI.getService(AjaxRequestService)
     }
   ],
   bootstrap: [AppComponent]

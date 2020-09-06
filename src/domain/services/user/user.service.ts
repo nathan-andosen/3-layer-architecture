@@ -42,4 +42,9 @@ export class UserService {
     }
     return Promise.resolve(null);
   }
+
+
+  getJwtToken(): string {
+    return '123';
+  }
 }

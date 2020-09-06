@@ -1,6 +1,5 @@
 import { ObservableStoreModel } from '@app-services/store';
 import { IUser } from './user.interface';
-import { Observable } from 'rxjs';
 
 
 export class UserModel extends ObservableStoreModel<IUser> {

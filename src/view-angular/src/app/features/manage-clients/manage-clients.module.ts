@@ -5,11 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { ManageClientsPageComponent } from './manage-clients-page.component';
-
+import {
+  CreateClientComponent
+} from './components/create-client/create-client.component';
 
 @NgModule({
   declarations: [
-    ManageClientsPageComponent
+    ManageClientsPageComponent,
+    CreateClientComponent
   ],
   imports: [
     CommonModule,

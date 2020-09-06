@@ -1,6 +1,9 @@
 <div class="manage-profiles-page">
   <h1>Manage clients</h1>
 
+
+
+
   <div>
     <form [formGroup]="userDetailsForm" (ngSubmit)="userDetailsOnSubmit()">
       <h3>User details</h3>
@@ -36,4 +39,7 @@
       <button type="submit">Update</button>
     </form>
   </div>
+
+
+  <app-create-client></app-create-client>
 </div>

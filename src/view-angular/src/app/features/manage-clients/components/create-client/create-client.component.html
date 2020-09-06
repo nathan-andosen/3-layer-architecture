@@ -1,0 +1,35 @@
+<div class="create-client">
+  <form [formGroup]="createNewClientForm" (ngSubmit)="createClientOnSubmit()">
+    <h3>Client details</h3>
+    <div>
+      <label>
+        Username*:
+        <input type="text" formControlName="username" required>
+      </label>
+    </div>
+    <div>
+      <label>
+        Firstname*:
+        <input type="text" formControlName="firstname" required>
+      </label>
+    </div>
+    <div>
+      <label>
+        Lastname*:
+        <input type="text" formControlName="lastname" required
+        >
+      </label>
+    </div>
+    <div>
+      <label>
+        Age:
+        <input type="text" formControlName="age">
+      </label>
+    </div>
+    <p>*required</p>
+    <p>
+      Form Status: {{ createNewClientForm.status }}
+    </p>
+    <button type="submit">Create</button>
+  </form>
+</div>

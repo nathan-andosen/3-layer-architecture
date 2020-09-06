@@ -3,19 +3,33 @@ import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserService } from '@domain/services/user';
-import { UserModel } from '@domain/models/user';
-import { isString } from '@app-services/utils';
+import { extractErrorMessage } from '@app-services/utils';
 
+
+/**
+ * Sign in page component
+ *
+ * @export
+ * @class SignInPageComponent
+ */
 @Component({
   selector: 'app-sign-in-page',
   templateUrl: './sign-in-page.component.html',
   styleUrls: ['./sign-in-page.component.scss']
 })
 export class SignInPageComponent {
-  user: UserModel;
   signinForm: FormGroup;
   signinErrorMsg: string = '';
 
+
+  /**
+   * Creates an instance of SignInPageComponent.
+   * 
+   * @param {UserService} userSrv
+   * @param {Router} router
+   * @param {FormBuilder} formBuilder
+   * @memberof SignInPageComponent
+   */
   constructor(private userSrv: UserService,
   private router: Router,
   private formBuilder: FormBuilder) {
@@ -27,6 +41,12 @@ export class SignInPageComponent {
   }
 
 
+  /**
+   * Build sign in form
+   *
+   * @private
+   * @memberof SignInPageComponent
+   */
   private buildSigninForm() {
     this.signinForm = this.formBuilder.group({
       username: ['admin', Validators.required],
@@ -35,18 +55,13 @@ export class SignInPageComponent {
   }
 
 
-
-  navigateToTdeeCalculator() {
-    this.router.navigate(['tdee']);
-  }
-
-
-  createUser() {
-    this.user = this.userSrv.createUser({ id: '123', username: 'clark-kent' });
-  }
-
-
-  signinOnSubmit() {
+  /**
+   * On submit handler for sign in form
+   *
+   * @returns
+   * @memberof SignInPageComponent
+   */
+  async signinOnSubmit() {
     this.signinErrorMsg = '';
     if (this.signinForm.invalid) {
       this.signinErrorMsg = 'Please enter a valid username and password';
@@ -54,18 +69,11 @@ export class SignInPageComponent {
     }
     const username = this.signinForm.controls.username.value;
     const password = this.signinForm.controls.password.value;
-    this.userSrv.signIn(username, password)
-    .then((user) => {
+    try {
+      await this.userSrv.signIn(username, password);
       this.router.navigate(['tdee']);
-    })
-    .catch((err) => {
-      if (isString(err)) {
-        this.signinErrorMsg = err;
-      } else if (err && err.message) {
-        this.signinErrorMsg = err.message;
-      } else {
-        this.signinErrorMsg = 'Signin Error: Unexpected error.';
-      }
-    });
+    } catch(err) {
+      this.signinErrorMsg = extractErrorMessage(err);
+    }
   }
 }

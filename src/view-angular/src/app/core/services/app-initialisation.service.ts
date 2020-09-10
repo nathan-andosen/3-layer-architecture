@@ -16,7 +16,7 @@ export class AppInitialisationService {
 
   initializeApp(): Promise<any> {
     console.log('initializeApp()...');
-    this.listenToAjaxHooks();
+    this.subscribeToServiceTasks();
     return this.userSrv.checkUserHasSession()
     .then((user) => {
       return Promise.resolve();
@@ -28,14 +28,10 @@ export class AppInitialisationService {
   }
 
 
-  private listenToAjaxHooks() {
-    
+  private subscribeToServiceTasks() {
     this.ajaxRequestSrv.onFetchJwtToken(() => {
       return Promise.resolve({ jwtToken: '12345' });
     });
-
-
-    this.ajaxRequestSrv.getFake();
   }
 
 }

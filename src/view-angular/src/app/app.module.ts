@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { DI } from '@thenja/DI';
 import { UserService } from '@domain/services/user';
 import { AjaxRequestService } from '@app-services/ajax';
+import { ClientService } from '@domain/services/client';
+import { DummyLocalStorageService } from '@app-services/ajax/dummy-local-storage.service';
 
 
 @NgModule({
@@ -28,6 +30,9 @@ import { AjaxRequestService } from '@app-services/ajax';
     },{
       provide: AjaxRequestService,
       useValue: DI.getService(AjaxRequestService)
+    }, {
+      provide: ClientService,
+      useValue: DI.getService(ClientService)
     }
   ],
   bootstrap: [AppComponent]

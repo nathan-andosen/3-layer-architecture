@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 
 import { UserService } from '@domain/services/user';
+import { ClientService } from '@domain/services/client';
 import { UserModel } from '@domain/models/user';
 import { stringIsNotEmpty, isNumber } from '@app-services/utils';
 
@@ -19,6 +20,7 @@ export class CreateClientComponent {
   private user: UserModel;
 
   constructor(private userSrv: UserService,
+  private clientSrv: ClientService,
   private router: Router,
   private formBuilder: FormBuilder) {
     this.user = this.userSrv.createUser({
@@ -56,6 +58,10 @@ export class CreateClientComponent {
     if (this.createNewClientForm.invalid) {
       console.log('INVALID FORM: ', this.createNewClientForm);
     }
+
+    // TODO: user this.clientSrv to create the client, should get created in
+    // the local storage
+
   }
   
 }

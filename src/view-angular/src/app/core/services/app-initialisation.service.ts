@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 
 import { UserService } from '@domain/services/user';
-import { AjaxRequestService, AJAX_REQUEST_ACTIONS } from '@app-services/ajax';
+import { AjaxRequestService } from '@app-services/ajax';
 
 export function init_app(appLoadService: AppInitialisationService) {
   return () => appLoadService.initializeApp();
@@ -29,11 +29,13 @@ export class AppInitialisationService {
 
 
   private listenToAjaxHooks() {
-    this.ajaxRequestSrv.action.on(AJAX_REQUEST_ACTIONS.GET_JWT_TOKEN, () => {
-      return Promise.resolve('12345');
+    
+    this.ajaxRequestSrv.onFetchJwtToken(() => {
+      return Promise.resolve({ jwtToken: '12345' });
     });
 
-    this.ajaxRequestSrv.get();
+
+    this.ajaxRequestSrv.getFake();
   }
 
 }

@@ -2,65 +2,49 @@ import { ajax } from 'rxjs/ajax';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+import { TaskModel, ITask } from '../task';
 
-export const AJAX_REQUEST_ACTIONS = {
-  GET_JWT_TOKEN: 'get-jwt-token'
+
+// out ajax request tasks
+const AJAX_REQUEST_TASKS = {
+  FETCH_JWT_TOKEN: {
+    name: 'fetch-jwt-token',
+    singleSubscriber: true,
+    throwErrorIfNoSubscriber: 'No subscriber for AjaxRequestService.'
+      + 'onFetchJwtToken()'
+  } as ITask
 };
 
 
-type IActionDoneFn = (data?: any) => Promise<any>;
-interface IActionData {
-  fn: IActionDoneFn;
-}
-
-class Action {
-  private actions: { [actionName: string]: IActionData[] };
-
-
-  constructor() {
-    this.actions = {};
-  }
-
-  on(actionName: string, done: IActionDoneFn) {
-    if (!actionName) throw new Error('actionType parameter not set');
-    if (!done) throw new Error('done parameter not set');
-    (this.actions[actionName] || (this.actions[actionName] = [])).push({
-      fn: done
-    });
-  }
-
-  off(actionType: string) {
-
-  }
-
-  trigger() {
-
-  }
-
-  triggerSingle(actionName: string, data?: any): Promise<any> {
-    if (!this.actions[actionName] || this.actions[actionName].length < 1) {
-      return Promise.resolve(null);
-    }
-    const actionFn = this.actions[actionName][0].fn;
-    return actionFn.call(this, data);
-  }
+interface IFetchJwtToken {
+  jwtToken: string;
 }
 
 
+/**
+ * Service to make API requests using RxJs Ajax
+ *
+ * @export
+ * @class AjaxRequestService
+ */
 export class AjaxRequestService {
-  action: Action;
+  private task: TaskModel;
 
   constructor() {
-    this.action = new Action();
+    this.task = new TaskModel();
+  }
+
+  onFetchJwtToken(done: () => Promise<IFetchJwtToken>) {
+    this.task.on(AJAX_REQUEST_TASKS.FETCH_JWT_TOKEN, done);
   }
 
 
   private getHttpHeaders(): Promise<any> {
-    return this.action.triggerSingle(AJAX_REQUEST_ACTIONS.GET_JWT_TOKEN)
-    .then((jwtToken) => {
+    return this.task.trigger(AJAX_REQUEST_TASKS.FETCH_JWT_TOKEN)
+    .then((data: IFetchJwtToken) => {
       const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + jwtToken
+        'Authorization': 'Bearer ' + data.jwtToken 
       };
       return Promise.resolve(headers);
     })
@@ -70,8 +54,7 @@ export class AjaxRequestService {
   };
 
 
-
-  get() {
+  getFake() {
     this.getHttpHeaders()
     .then((headers) => {
       console.log(headers);
@@ -79,24 +62,27 @@ export class AjaxRequestService {
     .catch((err) => {
       throw err;
     });
-
-    // const responseData = ajax({
-    //   url: '',
-    //   method: 'GET',
-    //   headers: this.getHttpHeaders(),
+  }
 
 
-    //   // for use in POST
-    //   // body: {}
-    // })
-    // .pipe(
-    //   map((response) => {
-    //     return response;
-    //   }),
-    //   catchError((err) => {
-    //     return of(err);
-    //   })
-    // );
+
+  get() {
+    const responseData = ajax({
+      url: '',
+      method: 'GET',
+      headers: this.getHttpHeaders(),
+
+      // for use in POST
+      // body: {}
+    })
+    .pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((err) => {
+        return of(err);
+      })
+    );
   }
 
   post() {

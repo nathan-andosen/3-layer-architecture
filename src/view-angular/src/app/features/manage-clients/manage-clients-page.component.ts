@@ -5,6 +5,7 @@ import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/fo
 import { UserService } from '@domain/services/user';
 import { UserModel } from '@domain/models/user';
 import { stringIsNotEmpty, isNumber } from '@app-services/utils';
+import { ClientModel } from '@domain/models/client';
 
 @Component({
   selector: 'app-manage-clients-page',
@@ -59,7 +60,12 @@ export class ManageClientsPageComponent {
 
 
   createClientOnSubmit() {
-    
+
+  }
+
+
+  clientSelected(client: ClientModel) {
+    console.log('Client selected: ', client);
   }
   
 }

@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Validators, FormBuilder, FormGroup, AbstractControl
@@ -21,13 +26,17 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientListComponent {
+  @Output() clientSelected: EventEmitter<ClientModel>;
+
   errorMsg: string;
   clients: ClientModel[];
+  selectedClient: ClientModel;
 
   constructor(private userSrv: UserService,
   private clientSrv: ClientService,
   private router: Router,
   private formBuilder: FormBuilder) {
+    this.clientSelected = new EventEmitter();
     this.fetchClients();
   }
   
@@ -40,5 +49,10 @@ export class ClientListComponent {
     }
   }
 
+
+  selectClient(client: ClientModel) {
+    this.selectedClient = client;
+    this.clientSelected.next(this.selectedClient);
+  }
   
 }

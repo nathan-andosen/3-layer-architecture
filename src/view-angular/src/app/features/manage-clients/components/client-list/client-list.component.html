@@ -3,8 +3,10 @@
   <p *ngIf="errorMsg">{{ errorMsg }}</p>
   <ul>
     <li *ngFor="let client of clients">
-      <span>{{ client.state.firstname }} </span>
-      <span>{{ client.state.lastname }}</span>
+      <a (click)="selectClient(client)"
+      [ngClass]="{ 'active': selectedClient?.state.id === client.state.id }">
+        <span>{{ client.state.firstname + ' ' + client.state.lastname }} </span>
+      </a>
     </li>
   </ul>
 </div>

@@ -40,6 +40,7 @@
     </form>
   </div>
 
-  <app-client-list></app-client-list>
+  <app-client-list (clientSelected)="clientSelected($event)"></app-client-list>
+  <app-update-client></app-update-client>
   <app-create-client></app-create-client>
 </div>

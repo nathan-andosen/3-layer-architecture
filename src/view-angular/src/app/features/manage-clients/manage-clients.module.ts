@@ -11,12 +11,16 @@ import {
 import {
   ClientListComponent
 } from './components/client-list/client-list.component';
+import {
+  UpdateClientComponent
+} from './components/update-client/update-client.component';
 
 @NgModule({
   declarations: [
     ManageClientsPageComponent,
     CreateClientComponent,
-    ClientListComponent
+    ClientListComponent,
+    UpdateClientComponent
   ],
   imports: [
     CommonModule,

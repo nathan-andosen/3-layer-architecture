@@ -1,0 +1,17 @@
+@import "variables";
+
+.client-list {
+  a {
+    display: block;
+    padding: $size-base-value / 2;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ccc;
+    }
+
+    &.active {
+      background-color: green;
+    }
+  }
+}

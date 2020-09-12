@@ -8,11 +8,15 @@ import { ManageClientsPageComponent } from './manage-clients-page.component';
 import {
   CreateClientComponent
 } from './components/create-client/create-client.component';
+import {
+  ClientListComponent
+} from './components/client-list/client-list.component';
 
 @NgModule({
   declarations: [
     ManageClientsPageComponent,
-    CreateClientComponent
+    CreateClientComponent,
+    ClientListComponent
   ],
   imports: [
     CommonModule,

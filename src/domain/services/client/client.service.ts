@@ -9,19 +9,19 @@ export class ClientService {
   @DI.Inject(ApiService)
   private apiSrv: ApiService;
 
-  createClient(data: Partial<IClient>): Promise<ClientModel> {
-    return this.apiSrv.client.create(data)
-    .then((clientData) => {
-      return Promise.resolve(this.clientFactory.create(clientData));
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    });
+  async createClient(data: Partial<IClient>): Promise<ClientModel> {
+    const clientData = await this.apiSrv.client.create(data);
+    return this.clientFactory.create(clientData);
   }
 
 
-  fetchAllClients(): ClientModel[] {
-    return [];
+  async fetchAllClients(): Promise<ClientModel[]> {
+    const clientsData = await this.apiSrv.client.fetchAll();
+    const clients: ClientModel[] = [];
+    clientsData.forEach((clientData) => {
+      clients.push(this.clientFactory.create(clientData));
+    });
+    return clients;
   }
 
 

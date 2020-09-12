@@ -1,6 +1,6 @@
 <div class="create-client">
   <form [formGroup]="createNewClientForm" (ngSubmit)="createClientOnSubmit()">
-    <h3>Client details</h3>
+    <h3>Create new client</h3>
     <div>
       <label>
         Username*:
@@ -29,6 +29,12 @@
     <p>*required</p>
     <p>
       Form Status: {{ createNewClientForm.status }}
+    </p>
+    <p style="color: red;">
+      {{ formErrorMsg }}
+    </p>
+    <p style="color: green;">
+      {{ formSuccessMsg }}
     </p>
     <button type="submit">Create</button>
   </form>

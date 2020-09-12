@@ -1,0 +1,10 @@
+<div class="client-list">
+  <h3>Clients:</h3>
+  <p *ngIf="errorMsg">{{ errorMsg }}</p>
+  <ul>
+    <li *ngFor="let client of clients">
+      <span>{{ client.state.firstname }} </span>
+      <span>{{ client.state.lastname }}</span>
+    </li>
+  </ul>
+</div>

@@ -3,18 +3,21 @@ import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { DI } from '@thenja/DI';
 
-import { TaskModel, ITask } from '../task';
 import { DummyLocalStorageService } from './dummy-local-storage.service';
 
+import {
+  EventManager,
+  IEvent,
+  IEventCallbackFn
+} from '../event-manager';
 
-// out ajax request tasks
-const AJAX_REQUEST_TASKS = {
+// our ajax request service events
+export const AJAX_REQUEST_EVENTS = {
   FETCH_JWT_TOKEN: {
     name: 'fetch-jwt-token',
     singleSubscriber: true,
-    throwErrorIfNoSubscriber: 'No subscriber for AjaxRequestService.'
-      + 'onFetchJwtToken()'
-  } as ITask
+    throwErrorIfNoSubscriber: true
+  } as IEvent
 };
 
 
@@ -33,56 +36,53 @@ export class AjaxRequestService {
   @DI.Inject(DummyLocalStorageService)
   private dummyLocalStorageSrv: DummyLocalStorageService;
 
-  private task: TaskModel;
+  // keep the event manager private, we will add our own on() off() methods to
+  // the service itself
+  private events: EventManager;
 
   constructor() {
-    this.task = new TaskModel();
+    this.events = new EventManager();
   }
 
-  onFetchJwtToken(done: () => Promise<IFetchJwtToken>) {
-    this.task.on(AJAX_REQUEST_TASKS.FETCH_JWT_TOKEN, done);
+  on(event: IEvent, fn: IEventCallbackFn) {
+    this.events.on(event, fn);
+  }
+
+  off(event: IEvent, fn: IEventCallbackFn) {
+    this.events.off(event, fn);
   }
 
 
-  private getHttpHeaders(): Promise<any> {
-    return this.task.trigger(AJAX_REQUEST_TASKS.FETCH_JWT_TOKEN)
-    .then((data: IFetchJwtToken) => {
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + data.jwtToken 
-      };
-      return Promise.resolve(headers);
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    });
+  private async getHttpHeaders(): Promise<any> {
+    const data: IFetchJwtToken = await this.events
+    .emit(AJAX_REQUEST_EVENTS.FETCH_JWT_TOKEN);
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + data.jwtToken 
+    };
+    return headers;
   };
 
 
-  get(endPointUrl: string): Promise<any> {
-    return this.getHttpHeaders()
-    .then((headers) => {
-      
-    })
-    .catch((err) => {
-      throw err;
-    });
+  async get(endPointUrl: string): Promise<any> {
+    const headers = await this.getHttpHeaders();
+    // normally we would make an ajax request to a server, for demo purposes,
+    // we just use a dummy local storage service
+    if (endPointUrl === '/clients/fetch') {
+      return this.dummyLocalStorageSrv.getClients();
+    }
+    return null;
   }
 
 
-  post(endPointUrl: string, requestData?: any): Promise<any> {
-    return this.getHttpHeaders()
-    .then((headers) => {
-      // normally we would make a request to a server, but for demo purposes,
-      // we just use local storage
-      if (endPointUrl === '/client/create') {
-        return this.dummyLocalStorageSrv.createClient(requestData);
-      }
-      return Promise.resolve(null);
-    })
-    .catch((err) => {
-      throw err;
-    });
+  async post(endPointUrl: string, requestData?: any): Promise<any> {
+    const headers = await this.getHttpHeaders();
+    // normally we would make an ajax request to a server, for demo purposes,
+    // we just use a dummy local storage service
+    if (endPointUrl === '/client/create') {
+      return this.dummyLocalStorageSrv.createClient(requestData);
+    }
+    return null;
   }
 
   put() {

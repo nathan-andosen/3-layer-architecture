@@ -4,11 +4,9 @@ import { IClient } from './client.interface';
 
 export class ClientModel extends ObservableStoreModel<IClient> {
 
-  private data: IClient;
 
   constructor(data?: IClient) {
-    super();
-    this.data = data;
+    super(data);
   }
 
 }

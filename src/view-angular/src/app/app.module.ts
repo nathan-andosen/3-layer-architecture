@@ -10,7 +10,6 @@ import { DI } from '@thenja/DI';
 import { UserService } from '@domain/services/user';
 import { AjaxRequestService } from '@app-services/ajax';
 import { ClientService } from '@domain/services/client';
-import { DummyLocalStorageService } from '@app-services/ajax/dummy-local-storage.service';
 
 
 @NgModule({

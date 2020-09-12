@@ -9,14 +9,15 @@ export class ClientApiService {
   @DI.Inject(AjaxRequestService)
   private ajaxRequestSrv: AjaxRequestService;
 
-  create(data: Partial<IClient>): Promise<IClient> {
-    return this.ajaxRequestSrv.post('/client/create', data)
-    .then((responseData: IClient) => {
-      return Promise.resolve(responseData);
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    });
+  async create(data: Partial<IClient>): Promise<IClient> {
+    const clientData: IClient = await this.ajaxRequestSrv
+    .post('/client/create', data);
+    return clientData;
+  }
+
+  async fetchAll(): Promise<IClient[]> {
+    const clients: IClient[] = await this.ajaxRequestSrv.get('/clients/fetch');
+    return clients;
   }
 
 }

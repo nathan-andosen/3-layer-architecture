@@ -7,7 +7,11 @@ import {
 import { UserService } from '@domain/services/user';
 import { ClientService } from '@domain/services/client';
 import { UserModel } from '@domain/models/user';
-import { stringIsNotEmpty, isNumber } from '@app-services/utils';
+import {
+  stringIsNotEmpty,
+  isNumber,
+  extractErrorMessage
+} from '@app-services/utils';
 
 @Component({
   selector: 'app-create-client',
@@ -18,6 +22,8 @@ import { stringIsNotEmpty, isNumber } from '@app-services/utils';
 export class CreateClientComponent {
   createNewClientForm: FormGroup;
   private user: UserModel;
+  formErrorMsg: string;
+  formSuccessMsg: string;
 
   constructor(private userSrv: UserService,
   private clientSrv: ClientService,
@@ -53,15 +59,27 @@ export class CreateClientComponent {
 
 
   createClientOnSubmit() {
+    this.formErrorMsg = '';
+    this.formSuccessMsg = '';
     console.log('this.user.state = ', this.user.state);
     console.log('this.userDetailsForm.value = ', this.createNewClientForm.value);
     if (this.createNewClientForm.invalid) {
       console.log('INVALID FORM: ', this.createNewClientForm);
+      this.formErrorMsg = 'Invalid form';
+      return;
     }
 
     // TODO: user this.clientSrv to create the client, should get created in
     // the local storage
-
+    const clientData = this.createNewClientForm.value;
+    this.clientSrv.createClient(clientData)
+    .then((client) => {
+      this.formSuccessMsg = 'Client created successfully. Id = '
+      + client.state.id;
+    })
+    .catch((err) => {
+      this.formErrorMsg = extractErrorMessage(err);
+    });
   }
   
 }

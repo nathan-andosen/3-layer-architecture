@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { DI } from '@thenja/DI';
 import { UserService } from '@domain/services/user';
 import { AjaxRequestService } from '@app-services/ajax';
-import { ClientService } from '@domain/services/client';
+import { ClientService, ManageClientsService } from '@domain/services/client';
 
 
 @NgModule({
@@ -32,6 +32,9 @@ import { ClientService } from '@domain/services/client';
     }, {
       provide: ClientService,
       useValue: DI.getService(ClientService)
+    }, {
+      provide: ManageClientsService,
+      useValue: DI.getService(ManageClientsService)
     }
   ],
   bootstrap: [AppComponent]

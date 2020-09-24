@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 
 import { UserService } from '@domain/services/user';
-import { ClientService } from '@domain/services/client';
+import { ClientService, ManageClientsService } from '@domain/services/client';
 import { UserModel } from '@domain/models/user';
 import { ClientModel } from '@domain/models/client';
 import {
@@ -30,10 +30,13 @@ export class ClientListComponent {
 
   errorMsg: string;
   clients: ClientModel[];
-  selectedClient: ClientModel;
+  get selectedClient(): ClientModel {
+    return this.manageClientsSrv.selectedClient.getValue();
+  }
 
   constructor(private userSrv: UserService,
   private clientSrv: ClientService,
+  private manageClientsSrv: ManageClientsService,
   private router: Router,
   private formBuilder: FormBuilder) {
     this.clientSelected = new EventEmitter();
@@ -51,7 +54,7 @@ export class ClientListComponent {
 
 
   selectClient(client: ClientModel) {
-    this.selectedClient = client;
+    this.manageClientsSrv.setSelectedClient(client);
     this.clientSelected.next(this.selectedClient);
   }
   

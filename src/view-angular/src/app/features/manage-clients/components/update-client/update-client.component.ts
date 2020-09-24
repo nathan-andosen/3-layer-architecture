@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Validators, FormBuilder, FormGroup, AbstractControl
@@ -23,27 +28,25 @@ import {
 })
 export class UpdateClientComponent implements OnDestroy {
   private selectedClientSubscription: Subscription;
-  selectedClient: ClientModel;
-  name: string = 'sadf';
+  // selectedClient: ClientModel;
+  get selectedClient(): ClientModel {
+    return this.manageClientsSrv.selectedClient.getValue();
+  }
 
   constructor(private userSrv: UserService,
   private clientSrv: ClientService,
   private manageClientsSrv: ManageClientsService,
+  private changeRef: ChangeDetectorRef,
   private router: Router,
   private formBuilder: FormBuilder) {
     
     this.selectedClientSubscription = this.manageClientsSrv.selectedClient
     .subscribe((client) => {
       console.log('Client was selected: ', client);
-      this.selectedClient = client;
-      if (!client) return;
-      this.name = this.selectedClient.state.firstname;
+      // this.selectedClient = client;
+      // if (!client) return;
+      this.changeRef.markForCheck();
     });
-
-    
-    setTimeout(() => {
-      this.name = "wqerqwerwer";
-    }, 3000);
   }
   
 

@@ -1,4 +1,4 @@
-import { DI } from '@thenja/DI';
+import { DI } from '@thenja/di';
 
 import { AjaxRequestService } from '@app-services/ajax';
 import { IClient} from '../../models/client';

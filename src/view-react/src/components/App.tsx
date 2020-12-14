@@ -4,7 +4,7 @@ import "./../assets/scss/App.scss";
 
 import { UserModel } from '@domain/models/user';
 import { UserService } from '@domain/services/user';
-import { DI } from '@thenja/DI';
+import { DI } from '@thenja/di';
 
 
 class App extends React.Component<{}, undefined> {

@@ -1,7 +1,7 @@
 import { ajax } from 'rxjs/ajax';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { DI } from '@thenja/DI';
+import { DI } from '@thenja/di';
 
 import { DummyLocalStorageService } from './dummy-local-storage.service';
 

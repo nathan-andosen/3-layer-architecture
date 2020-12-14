@@ -1,4 +1,4 @@
-import { DI } from '@thenja/DI';
+import { DI } from '@thenja/di';
 
 import { ClientApiService } from './client-api.service';
 

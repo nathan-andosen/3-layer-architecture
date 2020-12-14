@@ -6,7 +6,7 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 
-import { DI } from '@thenja/DI';
+import { DI } from '@thenja/di';
 import { UserService } from '@domain/services/user';
 import { AjaxRequestService } from '@app-services/ajax';
 import { ClientService, ManageClientsService } from '@domain/services/client';

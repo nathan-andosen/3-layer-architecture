@@ -1,4 +1,4 @@
-import { DI } from '@thenja/DI';
+import { DI } from '@thenja/di';
 import { UserFactory, UserModel, IUser } from '@domain/models/user';
 import { AuthService } from '@app-services/auth';
 

@@ -6,7 +6,7 @@ import {
   Router
 } from '@angular/router';
 
-import { UserService } from '@domain/services/user';
+import { UserService } from '@app-domain/services/user';
 
 
 /**

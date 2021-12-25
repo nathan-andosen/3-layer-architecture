@@ -1,5 +1,13 @@
 import { ISignInResponse } from './auth.interfaces';
+import { IUser } from '@app-domain/models/user';
 
+
+/**
+ * Auth service, used to handle authentication
+ *
+ * @export
+ * @class AuthService
+ */
 export class AuthService {
 
   private saveInSessionStorage(userData: any) {
@@ -22,11 +30,12 @@ export class AuthService {
       // fake some api request to a server
       setTimeout(() => {
         if (username === 'admin' && username === password) {
-          const userData = {
+          const userData: IUser = {
             id: '123',
             username: username,
             firstname: 'Admin',
-            lastname: ''
+            lastname: '',
+            behaviour: "nice"
           };
           this.saveInSessionStorage(userData);
           resolve({ user: userData});

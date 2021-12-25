@@ -1,5 +1,5 @@
 import { DI } from '@thenja/di';
-import { ClientModel, ClientFactory, IClient} from '@domain/models/client';
+import { ClientModel, ClientFactory, IClient} from '@app-domain/models/client';
 import { ApiService } from '../api';
 
 export class ClientService {

@@ -1,7 +1,14 @@
 import { DI } from '@thenja/di';
-import { UserFactory, UserModel, IUser } from '@domain/models/user';
+import { UserFactory, UserModel, IUser } from '@app-domain/models/user';
 import { AuthService } from '@app-services/auth';
 
+
+/**
+ * User service, used to perform actions on signed in user
+ *
+ * @export
+ * @class UserService
+ */
 export class UserService {
   @DI.Inject(UserFactory)
   private userFactory: UserFactory;

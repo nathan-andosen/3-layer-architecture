@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
-import { UserService } from '@domain/services/user';
+import { UserService } from '@app-domain/services/user';
 import { extractErrorMessage } from '@app-services/utils';
 
 
@@ -34,7 +34,7 @@ export class SignInPageComponent {
   private router: Router,
   private formBuilder: FormBuilder) {
     if (this.userSrv.userIsSignedIn()) {
-      this.router.navigate(['tdee']);
+      this.router.navigate(['home']);
       return;
     }
     this.buildSigninForm();
@@ -71,7 +71,7 @@ export class SignInPageComponent {
     const password = this.signinForm.controls.password.value;
     try {
       await this.userSrv.signIn(username, password);
-      this.router.navigate(['tdee']);
+      this.router.navigate(['home']);
     } catch(err) {
       this.signinErrorMsg = extractErrorMessage(err);
     }

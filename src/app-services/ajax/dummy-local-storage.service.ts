@@ -1,4 +1,4 @@
-import { IClient } from '@domain/models/client';
+import { IClient } from '@app-domain/models/client';
 
 export class DummyLocalStorageService {
 

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 
-import { UserService } from '@domain/services/user';
-import { UserModel } from '@domain/models/user';
+import { UserService } from '@app-domain/services/user';
+import { UserModel } from '@app-domain/models/user';
 import { stringIsNotEmpty, isNumber } from '@app-services/utils';
-import { ClientModel } from '@domain/models/client';
+import { ClientModel } from '@app-domain/models/client';
 
 @Component({
   selector: 'app-manage-clients-page',

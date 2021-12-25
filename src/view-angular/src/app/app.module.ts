@@ -7,9 +7,9 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 
 import { DI } from '@thenja/di';
-import { UserService } from '@domain/services/user';
+import { UserService } from '@app-domain/services/user';
 import { AjaxRequestService } from '@app-services/ajax';
-import { ClientService, ManageClientsService } from '@domain/services/client';
+import { ClientService, ManageClientsService } from '@app-domain/services/client';
 
 
 @NgModule({

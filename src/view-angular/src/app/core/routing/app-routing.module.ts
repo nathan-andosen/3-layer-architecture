@@ -16,6 +16,15 @@ const routes: Routes = [
     }
   },
   {
+    path: 'home',
+    loadChildren: () => import('../../features/home/home-page.module')
+    .then(m => m.HomePageModule),
+    canActivate: [AuthGuard],
+    data: {
+      name: 'home'
+    }
+  },
+  {
     path: 'tdee',
     loadChildren: () => import('../../features/tdee-calculator/tdee-calculator.module')
     .then(m => m.TdeeCalculatorModule),

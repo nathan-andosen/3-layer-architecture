@@ -23,7 +23,7 @@
       "@core/*": ["src/app/core/*"],
       "@shared/*": ["src/app/shared/*"],
       "@features/*": ["src/app/features/*"],
-      "@domain/*": ["../domain/*"],
+      "@app-domain/*": ["../app-domain/*"],
       "@app-services/*": ["../app-services/*"]
     }
   }

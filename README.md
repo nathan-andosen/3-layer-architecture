@@ -55,7 +55,7 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 
 #### Application Sevices layer
 
-* __Note!__ These services do not contain domain / business logic, those services are in the domain layer.
+* __Note!__ These services normally do not contain domain / business logic, those services are in the domain layer.
 * Services needed by the application, some examples:
   * Api service for ajax request
   * Services to manipulate state data for the view, such as, make a users name all uppercase
@@ -71,8 +71,9 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 
 ### Guidelines / Rules about layers
 
-* The domain & application services layer know nothing about the view framework / library in the view layer, do not add view framework specific code in these layers.
+* __Important!__ The domain & application services layer know nothing about the view framework / library in the view layer, do not add view framework specific code in these layers.
 * Try and keep the view layer as thin as possible, only UI related code should go here.
+* Try to keep business logic out of the _app-services_ layer, but it's not required.
 
 ## Vertical separation
 

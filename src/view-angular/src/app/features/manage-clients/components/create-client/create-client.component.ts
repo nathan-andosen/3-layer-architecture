@@ -4,9 +4,9 @@ import {
   Validators, FormBuilder, FormGroup, AbstractControl
 } from '@angular/forms';
 
-import { UserService } from '@domain/services/user';
-import { ClientService } from '@domain/services/client';
-import { UserModel } from '@domain/models/user';
+import { UserService } from '@app-domain/services/user';
+import { ClientService } from '@app-domain/services/client';
+import { UserModel } from '@app-domain/models/user';
 import {
   stringIsNotEmpty,
   isNumber,

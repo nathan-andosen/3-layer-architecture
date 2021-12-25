@@ -9,10 +9,10 @@ import {
   Validators, FormBuilder, FormGroup, AbstractControl
 } from '@angular/forms';
 
-import { UserService } from '@domain/services/user';
-import { ClientService, ManageClientsService } from '@domain/services/client';
-import { UserModel } from '@domain/models/user';
-import { ClientModel } from '@domain/models/client';
+import { UserService } from '@app-domain/services/user';
+import { ClientService, ManageClientsService } from '@app-domain/services/client';
+import { UserModel } from '@app-domain/models/user';
+import { ClientModel } from '@app-domain/models/client';
 import {
   stringIsNotEmpty,
   isNumber,

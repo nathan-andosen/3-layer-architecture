@@ -5,29 +5,10 @@ import { DI } from '@thenja/di';
 
 import { DummyLocalStorageService } from './dummy-local-storage.service';
 
-import {
-  EventManager,
-  IEvent,
-  IEventCallbackFn
-} from '../event-manager';
-
-// our ajax request service events
-export const AJAX_REQUEST_EVENTS = {
-  FETCH_JWT_TOKEN: {
-    name: 'fetch-jwt-token',
-    singleSubscriber: true,
-    throwErrorIfNoSubscriber: true
-  } as IEvent
-};
-
-
-interface IFetchJwtToken {
-  jwtToken: string;
-}
 
 
 /**
- * Service to make API requests using RxJs Ajax
+ * Service to make API requests to servers using RxJs Ajax
  *
  * @export
  * @class AjaxRequestService
@@ -36,29 +17,9 @@ export class AjaxRequestService {
   @DI.Inject(DummyLocalStorageService)
   private dummyLocalStorageSrv: DummyLocalStorageService;
 
-  // keep the event manager private, we will add our own on() off() methods to
-  // the service itself
-  private events: EventManager;
-
-  constructor() {
-    this.events = new EventManager();
-  }
-
-  on(event: IEvent, fn: IEventCallbackFn) {
-    this.events.on(event, fn);
-  }
-
-  off(event: IEvent, fn: IEventCallbackFn) {
-    this.events.off(event, fn);
-  }
-
-
   private async getHttpHeaders(): Promise<any> {
-    const data: IFetchJwtToken = await this.events
-    .emit(AJAX_REQUEST_EVENTS.FETCH_JWT_TOKEN);
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + data.jwtToken 
+      'Content-Type': 'application/json'
     };
     return headers;
   };

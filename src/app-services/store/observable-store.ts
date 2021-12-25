@@ -128,8 +128,12 @@ export class ObservableStore<T> {
   private mergeRecusive(obj1: any, patch: any) {
     for (const key in patch) {
       if (patch.hasOwnProperty(key)) {
-        if (typeof obj1[key] === 'undefined'
-        || patch[key].constructor !== {}.constructor) {
+        if (typeof obj1[key] === 'undefined') {
+          obj1[key] = patch[key];
+        } else if (Array.isArray(patch[key])) {
+          if (!obj1[key]) obj1[key] = [];
+          obj1[key] = obj1[key].concat(patch[key]);
+        } else if (patch[key].constructor !== {}.constructor) {
           obj1[key] = patch[key];
         } else {
           this.mergeRecusive(obj1[key], patch[key]);

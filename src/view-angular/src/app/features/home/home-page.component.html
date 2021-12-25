@@ -3,5 +3,13 @@
   <button (click)="signout()">Signout</button>
 
 
-  
+  <form [formGroup]="wishListItemForm" (ngSubmit)="addWishListItemOnSubmit()">
+    <div>
+      <label>
+        Add to wish list:
+        <input type="text" formControlName="wishListItem" required>
+      </label>
+    </div>
+    <button type="submit">Add</button>
+  </form>
 </div>

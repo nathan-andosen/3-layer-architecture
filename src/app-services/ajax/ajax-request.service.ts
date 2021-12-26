@@ -1,9 +1,7 @@
 import { ajax } from 'rxjs/ajax';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { DI } from '@thenja/di';
-
-import { DummyLocalStorageService } from './dummy-local-storage.service';
+import { wait } from '../utils';
 
 
 
@@ -14,8 +12,6 @@ import { DummyLocalStorageService } from './dummy-local-storage.service';
  * @class AjaxRequestService
  */
 export class AjaxRequestService {
-  @DI.Inject(DummyLocalStorageService)
-  private dummyLocalStorageSrv: DummyLocalStorageService;
 
   private async getHttpHeaders(): Promise<any> {
     const headers = {
@@ -28,21 +24,22 @@ export class AjaxRequestService {
   async get(endPointUrl: string): Promise<any> {
     const headers = await this.getHttpHeaders();
     // normally we would make an ajax request to a server, for demo purposes,
-    // we just use a dummy local storage service
-    if (endPointUrl === '/clients/fetch') {
-      return this.dummyLocalStorageSrv.getClients();
+    // we just use local storage
+    if (endPointUrl === '/wishlist/fetch') {
+      await wait(500);
+      let data = window.localStorage.getItem('wish-list');
+      if (!data) {
+        data = '{ "title": "Christmas wish list", "items": [] }';
+        window.localStorage.setItem('wish-list', data);
+      }
+      return JSON.parse(data);
     }
     return null;
   }
 
 
-  async post(endPointUrl: string, requestData?: any): Promise<any> {
+  async post(endPointUrl: string, postData?: any): Promise<any> {
     const headers = await this.getHttpHeaders();
-    // normally we would make an ajax request to a server, for demo purposes,
-    // we just use a dummy local storage service
-    if (endPointUrl === '/client/create') {
-      return this.dummyLocalStorageSrv.createClient(requestData);
-    }
     return null;
   }
 
@@ -50,11 +47,26 @@ export class AjaxRequestService {
 
   }
 
-  patch() {
-
+  async patch(endPointUrl: string, patchData?: any): Promise<any> {
+    const headers = await this.getHttpHeaders();
+    // normally we would make an ajax request to a server, for demo purposes,
+    // we just use local storage
+    if (endPointUrl === '/wishlist/update') {
+      await wait(500);
+      if (patchData) {
+        window.localStorage.setItem('wish-list', JSON.stringify(patchData));
+      }
+      return null;
+    }
+    return null;
   }
 
   delete() {
+
+  }
+
+
+  async realGet() {
 
   }
 

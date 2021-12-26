@@ -1,8 +1,8 @@
 import { DI } from '@thenja/di';
 
-import { ClientApiService } from './client-api.service';
+import { WishListApiService } from './wish-list-api.service';
 
 export class ApiService {
-  @DI.Inject(ClientApiService)
-  client: ClientApiService;
+  @DI.Inject(WishListApiService)
+  wishList: WishListApiService;
 }

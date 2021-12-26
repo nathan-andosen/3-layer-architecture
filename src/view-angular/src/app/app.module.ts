@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { DI } from '@thenja/di';
 import { UserService } from '@app-domain/services/user';
 import { AjaxRequestService } from '@app-services/ajax';
-import { ClientService, ManageClientsService } from '@app-domain/services/client';
 
 // import our ui5 components
 import "@ui5/webcomponents-icons/dist/add";
@@ -29,19 +28,16 @@ import "@ui5/webcomponents/dist/StandardListItem";
     ReactiveFormsModule,
     CoreModule.forRoot()
   ],
+  // Angular has its own dependency injection, so for the view layer, we
+  // use it
   providers: [
     {
       provide: UserService,
       useValue: DI.getService(UserService)
-    },{
+    },
+    {
       provide: AjaxRequestService,
       useValue: DI.getService(AjaxRequestService)
-    }, {
-      provide: ClientService,
-      useValue: DI.getService(ClientService)
-    }, {
-      provide: ManageClientsService,
-      useValue: DI.getService(ManageClientsService)
     }
   ],
   schemas: [

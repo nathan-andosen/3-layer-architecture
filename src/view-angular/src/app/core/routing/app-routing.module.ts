@@ -23,24 +23,6 @@ const routes: Routes = [
     data: {
       name: 'home'
     }
-  },
-  {
-    path: 'tdee',
-    loadChildren: () => import('../../features/tdee-calculator/tdee-calculator.module')
-    .then(m => m.TdeeCalculatorModule),
-    canActivate: [AuthGuard],
-    data: {
-      name: 'tdee'
-    }
-  },
-  {
-    path: 'clients',
-    loadChildren: () => import('../../features/manage-clients/manage-clients.module')
-    .then(m => m.ManageClientsModule),
-    canActivate: [AuthGuard],
-    data: {
-      name: 'clients'
-    }
   }
 ];
 

@@ -45,6 +45,7 @@ export class HomePageComponent implements OnInit {
   addItem() {
     if (this.wishListItem) {
       this.wishList.addItem(this.wishListItem);
+      this.wishListItem = '';
     }
   }
 

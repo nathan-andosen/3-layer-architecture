@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, NgForm } from '@angular/forms';
 
 import { UserService } from '@app-domain/services/user';
 import { WishListModel } from '@app-domain/models/wish-list';
@@ -17,25 +17,16 @@ import { WishListModel } from '@app-domain/models/wish-list';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  wishListItemForm: FormGroup;
   wishList: WishListModel;
+  wishListItem: string = "";
 
   constructor(private router: Router,
-  private userSrv: UserService,
-  private formBuilder: FormBuilder) {
-    this.buildWishListForm();
+  private userSrv: UserService) {
   }
 
   ngOnInit(): void {
     this.wishList = new WishListModel();
     this.wishList.loadFromStorage();
-  }
-
-
-  private buildWishListForm() {
-    this.wishListItemForm = this.formBuilder.group({
-      wishListItem: ['', Validators.required]
-    });
   }
 
 
@@ -51,13 +42,14 @@ export class HomePageComponent implements OnInit {
   }
 
 
-
-  addWishListItemOnSubmit() {
-    const itemName = this.wishListItemForm.controls.wishListItem.value;
-    console.log(itemName);
-    if (itemName) {
-      this.wishList.addItem(itemName);
+  addItem() {
+    if (this.wishListItem) {
+      this.wishList.addItem(this.wishListItem);
     }
+  }
+
+  deleteItem(e: CustomEvent) {
+    this.wishList.deleteItem(e.detail.item.innerText);
   }
 
 }

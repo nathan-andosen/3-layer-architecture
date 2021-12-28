@@ -1,10 +1,19 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
 import "./../assets/scss/App.scss";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-import { UserModel } from '@domain/models/user';
-import { UserService } from '@domain/services/user';
+import { UserModel } from '@app-domain/models/user';
+import { UserService } from '@app-domain/services/user';
 import { DI } from '@thenja/di';
+
+import HomeComponent from "./features/home/home.component";
+import SignInComponent from  "./features/sign-in/sign-in.component";
 
 
 class App extends React.Component<{}, undefined> {
@@ -36,6 +45,16 @@ class App extends React.Component<{}, undefined> {
               this.forceUpdate();
             }} />
         </div>
+
+        <Router>
+          <Route exact path="/">
+            <HomeComponent />
+          </Route>
+          <Route path="/signin">
+            <SignInComponent />
+          </Route>
+        </Router>
+
       </div>
     );
   }

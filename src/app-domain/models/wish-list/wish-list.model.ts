@@ -9,49 +9,69 @@ export class WishListModel extends ObservableStoreModel<IWishList> {
   private apiSrv: ApiService;
   private stateSub: Subscription;
 
+  /**
+   * Creates an instance of WishListModel.
+   *
+   * @param {IWishList} [data]
+   * @memberof WishListModel
+   */
   constructor(data?: IWishList) {
     super(data);
-
     this.stateSub = this.state$.subscribe((data) => {
-      console.log('subscribe...', data);
-      // if (data) {
-      //   window.localStorage.setItem('wish-list', JSON.stringify(this.state));
-      // }
-
-      // optimistic save, we assume it will save on the server
-      try { 
-        this.apiSrv.wishList.update(data);
-      } catch (err) {
-        
-      }
-      
+      // if you ever wanted to listen to state change for whatever reason
     });
   }
 
 
+  /**
+   * Destroy the model, unsubscribe from subscriptions
+   *
+   * @memberof WishListModel
+   */
   destroy() {
     this.stateSub.unsubscribe();
   }
 
 
-  async loadFromStorage(): Promise<void> {
-    // let data = window.localStorage.getItem('wish-list');
-    // if (!data) data = '{ "title": "Christmas wish list", "items": [] }';
-    // this.store.setState(JSON.parse(data));
-    // return;
-
+  /**
+   * Fetch data from the server using the api
+   *
+   * @returns {Promise<void>}
+   * @memberof WishListModel
+   */
+  async loadDataFromServer(): Promise<void> {
     const data = await this.apiSrv.wishList.fetch();
     this.store.setState(data);
     return;
   }
 
 
-  addItem(name: string) {
-    this.store.patchState({
-      items: [{ name: name }]
-    });
+  /**
+   * Add item to the wishlist
+   *
+   * @param {string} name
+   * @returns {Promise<void>}
+   * @memberof WishListModel
+   */
+  async addItem(name: string): Promise<void> {
+    const preState = this.state;
+    const newState = this.store.patchState({ items: [{ name: name }] });
+    try { 
+      await this.apiSrv.wishList.update(newState);
+    } catch (err) {
+      // something went wrong, we need to revert the state back
+      this.store.setState(preState, 'undo');
+      throw err;
+    }
   }
 
+
+  /**
+   * Delete an item from the wishlist
+   *
+   * @param {string} name
+   * @memberof WishListModel
+   */
   deleteItem(name: string) {
     const data = this.state;
     for (let i = 0; i < data.items.length; i++) {
@@ -61,6 +81,6 @@ export class WishListModel extends ObservableStoreModel<IWishList> {
       }
     }
     this.store.setState(data);
+    this.apiSrv.wishList.update(this.state);
   }
-
 }

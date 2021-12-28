@@ -13,15 +13,14 @@ export class AppInitialisationService {
 
   constructor(private userSrv: UserService) {}
 
-  initializeApp(): Promise<any> {
-    console.log('initializeApp()...');
-    return this.userSrv.checkUserHasSession()
-    .then((user) => {
-      return Promise.resolve();
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.resolve();
-    });
+  /**
+   * Gets fired before the app initializes
+   *
+   * @returns {Promise<any>}
+   * @memberof AppInitialisationService
+   */
+  async initializeApp(): Promise<any> {
+    // do stuff before the app initializes
+    return this.userSrv.checkUserHasSession();
   }
 }

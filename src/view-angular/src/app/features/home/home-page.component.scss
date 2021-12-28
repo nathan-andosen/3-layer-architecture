@@ -12,10 +12,14 @@ header {
     display: block;
   }
 
-  > div {
+  > form {
     display: flex;
     ui5-button {
       margin-left: 1em;
     }
   }
+}
+
+ui5-message-strip {
+  margin-top: 1em;
 }

@@ -14,7 +14,7 @@ export class WishListApiService {
   }
 
   async update(data: IWishList) {
-    if (data.items.length >= 5) {
+    if (data.items.length > 5) {
       throw new Error('Maximum wishlist items reached');
     }
     return this.ajaxRequestSrv.patch('/wishlist/update', data);

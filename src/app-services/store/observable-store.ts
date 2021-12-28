@@ -78,9 +78,10 @@ export class ObservableStore<T> {
   /**
    * Patch the existing state with new properties
    */
-  patchState(patchState: Partial<T>, action?: string): void {
+  patchState(patchState: Partial<T>, action?: string): T {
     const newData = this.deepCloneAndPatch(this.state, patchState);
     this.setState(newData, action);
+    return this.state;
   }
 
 

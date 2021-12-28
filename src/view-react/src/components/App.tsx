@@ -14,6 +14,7 @@ import { DI } from '@thenja/di';
 
 import HomeComponent from "./features/home/home.component";
 import SignInComponent from  "./features/sign-in/sign-in.component";
+import AuthenticatedRoute from './shared/private-route/private-route.component';
 
 
 class App extends React.Component<{}, undefined> {
@@ -47,9 +48,9 @@ class App extends React.Component<{}, undefined> {
         </div>
 
         <Router>
-          <Route exact path="/">
+          <AuthenticatedRoute exact path="/">
             <HomeComponent />
-          </Route>
+          </AuthenticatedRoute>
           <Route path="/signin">
             <SignInComponent />
           </Route>

@@ -19,32 +19,40 @@ import AuthenticatedRoute from './shared/authenticated-route/authenticated-route
 
 
 class App extends React.Component<{}, undefined> {
-  user: UserModel;
-
   @DI.Inject(UserService)
   userSrv: UserService;
+
+  private appHasInitialized = false;
 
   constructor(props: any) {
     super(props);
 
-    this.user = this.userSrv.createUser({
-      id: '123',
-      username: 'clark-kent'
-    });
+    this.initilizeApp();
+  }
+
+
+  async initilizeApp() {
+    await this.userSrv.checkUserHasSession();
+    this.appHasInitialized = true;
+    this.forceUpdate();
   }
 
 
   public render() {
-    return (
-      <Router>
-        <AuthenticatedRoute exact path="/">
-          <HomeComponent />
-        </AuthenticatedRoute>
-        <Route path="/signin">
-          <SignInComponent />
-        </Route>
-      </Router>
-    );
+    if (this.appHasInitialized) {
+      return (
+        <Router>
+          <AuthenticatedRoute exact path="/">
+            <HomeComponent />
+          </AuthenticatedRoute>
+          <Route path="/signin">
+            <SignInComponent />
+          </Route>
+        </Router>
+      );
+    } else {
+      return (<p>Loading app...</p>);
+    }
   }
 }
 

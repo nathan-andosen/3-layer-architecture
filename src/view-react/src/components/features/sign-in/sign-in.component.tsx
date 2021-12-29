@@ -29,6 +29,16 @@ class SignInComponent extends React.Component<IProps, IState> {
       password: 'admin',
       signinErrorMsg: ''
     };
+
+    if (this.userSrv.userIsSignedIn()) {
+      this.redirectToHomePage();
+    }
+  }
+
+  private redirectToHomePage() {
+    this.props.history.push({
+      pathname: '/'
+    });
   }
 
 
@@ -40,9 +50,7 @@ class SignInComponent extends React.Component<IProps, IState> {
         await this.userSrv.signIn(this.state.username, this.state.password);
         // todo - navigate to home page
         console.log('222222', this.props);
-        this.props.history.push({
-          pathname: '/'
-        });
+        this.redirectToHomePage();
       } catch(err) {
         this.setState({
           signinErrorMsg: extractErrorMessage(err)

@@ -63,3 +63,5 @@ class AuthenticatedRoute extends Route {
 
 declare let module: object;
 export default hot(module)(AuthenticatedRoute as any);
+const AuthenticatedRouteHot = hot(module)(AuthenticatedRoute as any);
+export { AuthenticatedRouteHot as AuthenticatedRoute }

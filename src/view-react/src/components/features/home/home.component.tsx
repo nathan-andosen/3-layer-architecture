@@ -1,7 +1,7 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-// import "./../assets/scss/App.scss";
+import "./home.component.scss";
 
 import { DI } from '@thenja/di';
 import { UserService } from '@app-domain/services/user';
@@ -28,17 +28,19 @@ class HomeComponent extends React.Component<IProps, undefined> {
     });
   }
 
-
   public render() {
     return (
       <div className="Home-component">
-        <p>Home component</p>
-        <button onClick={(event) => this.signout()}>Signout</button>
+        <header>
+          <h1>Christmas wish list</h1>
+          <ui5-button onClick={(event) => this.signout()}>Sign out</ui5-button>
+        </header>
+        
       </div>
     );
   }
 }
 
 declare let module: object;
-const HomeComponentWithRouter = withRouter(HomeComponent);
-export default hot(module)(HomeComponentWithRouter);
+const HomeComponentHot = hot(module)(withRouter(HomeComponent));
+export { HomeComponentHot as HomeComponent }

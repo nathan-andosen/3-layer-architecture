@@ -103,5 +103,5 @@ class SignInComponent extends React.Component<IProps, IState> {
 }
 
 declare let module: object;
-const SignInComponentWithRoute = withRouter(SignInComponent);
-export default hot(module)(SignInComponentWithRoute);
+const SignInComponentHot = hot(module)(withRouter(SignInComponent));
+export { SignInComponentHot as SignInComponent }

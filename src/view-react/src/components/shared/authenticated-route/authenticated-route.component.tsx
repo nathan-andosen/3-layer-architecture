@@ -1,45 +1,49 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
-import {
-  Route,
-  Redirect
-} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import { UserService } from '@app-domain/services/user';
 import { DI } from '@thenja/di';
 
 
-
-// class AuthenticatedRoute extends React.Component<{
-//   [key: string]: any
-// }, undefined> {
+/**
+ * Route that only loads if the user is signed in
+ *
+ * @class AuthenticatedRoute
+ * @extends {Route}
+ */
 class AuthenticatedRoute extends Route {
   @DI.Inject(UserService)
   userSrv: UserService;
 
-  // props;
-
+  // children refers to the child components of the route
   private children;
-  private rest;
+  private otherAttributes;
 
-  // constructor({ children, ...rest }) {
-  // constructor({children, ...rest}) {
+  /**
+   * Creates an instance of AuthenticatedRoute.
+   * 
+   * @param {*} params
+   * @memberof AuthenticatedRoute
+   */
   constructor(params: any) {
-    console.log('111111111111', params);
-    
     super(params);
-    this.children = {...params}.children;
-    this.rest = {...params};// rest;
-    delete this.rest.children;
-    console.log('children', this.children);
-    console.log('rest', this.rest);
-    console.log('222222', this.userSrv.userIsSignedIn());
+    const {children, ...otherAttrs} = params;
+    this.children = children;
+    this.otherAttributes = otherAttrs;
   }
 
+
+  /**
+   * Render the route or redirect to signin page
+   *
+   * @returns
+   * @memberof AuthenticatedRoute
+   */
   public render() {
     return (
       <Route
-      {...this.rest}
+      {...this.otherAttributes}
       render={({ location }) =>
         this.userSrv.userIsSignedIn() ? (
           this.children
@@ -58,5 +62,4 @@ class AuthenticatedRoute extends Route {
 }
 
 declare let module: object;
-
 export default hot(module)(AuthenticatedRoute as any);

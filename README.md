@@ -136,6 +136,13 @@ _Below is a list of common features / functionality that most web apps have and 
 * Shared UI components (design system) __(App / View)__
 * Views, templates & components __(App / View)__
 
+# Frontend framework notes
+
+### React
+
+* You should use Typescript
+  * https://react-typescript-cheatsheet.netlify.app/
+
 # Glossary
 
 #### Aggregate

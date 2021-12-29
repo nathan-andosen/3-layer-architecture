@@ -5,7 +5,8 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  withRouter
 } from "react-router-dom";
 
 import { UserModel } from '@app-domain/models/user';
@@ -14,7 +15,7 @@ import { DI } from '@thenja/di';
 
 import HomeComponent from "./features/home/home.component";
 import SignInComponent from  "./features/sign-in/sign-in.component";
-import AuthenticatedRoute from './shared/private-route/private-route.component';
+import AuthenticatedRoute from './shared/authenticated-route/authenticated-route.component';
 
 
 class App extends React.Component<{}, undefined> {
@@ -35,28 +36,14 @@ class App extends React.Component<{}, undefined> {
 
   public render() {
     return (
-      <div className="app">
-        <h1>Hello World!</h1>
-        <p>Username: { this.user.state.username }</p>
-        <div>
-          <input type="text" 
-            value={ this.user?.state?.username }
-            onChange={ (event) => { 
-              this.user?.updateUsername(event.target.value);
-              this.forceUpdate();
-            }} />
-        </div>
-
-        <Router>
-          <AuthenticatedRoute exact path="/">
-            <HomeComponent />
-          </AuthenticatedRoute>
-          <Route path="/signin">
-            <SignInComponent />
-          </Route>
-        </Router>
-
-      </div>
+      <Router>
+        <AuthenticatedRoute exact path="/">
+          <HomeComponent />
+        </AuthenticatedRoute>
+        <Route path="/signin">
+          <SignInComponent />
+        </Route>
+      </Router>
     );
   }
 }

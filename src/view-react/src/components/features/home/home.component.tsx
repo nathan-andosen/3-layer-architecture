@@ -5,6 +5,8 @@ import "./home.component.scss";
 
 import { DI } from '@thenja/di';
 import { UserService } from '@app-domain/services/user';
+import { WishListModel } from '@app-domain/models/wish-list';
+import { extractErrorMessage } from '@app-services/utils';
 
 interface IState {
   wishListItem: string;
@@ -17,9 +19,10 @@ interface IProps extends RouteComponentProps {
 class HomeComponent extends React.Component<IProps, IState> {
   @DI.Inject(UserService)
   private userSrv: UserService;
-
   private inputRef: React.RefObject<HTMLElement>;
-
+  private ui5ListRef: React.RefObject<HTMLElement>;
+  private wishList: WishListModel;
+  private inputAddError: string;
 
   constructor(props: any) {
     super(props);
@@ -27,6 +30,7 @@ class HomeComponent extends React.Component<IProps, IState> {
       wishListItem: ''    
     };
     this.inputRef = React.createRef();
+    this.ui5ListRef = React.createRef();
   }
 
   async signout() {
@@ -42,12 +46,38 @@ class HomeComponent extends React.Component<IProps, IState> {
     this.inputRef.current.addEventListener('input', (event) => {
       this.setState({wishListItem: event.target['value']});
     });
+
+    this.ui5ListRef.current.addEventListener('item-delete', (event) => {
+      this.deleteItem(event as CustomEvent);
+    });
+
+    this.initWishListModel();
+  }
+
+  async initWishListModel() {
+    this.wishList = new WishListModel();
+    await this.wishList.loadDataFromServer();
+    console.log('wish list', this.wishList.state);
+    this.forceUpdate();
   }
 
 
   async addItem() {
-
     console.log('addItem()...', this.state);
+    if (this.state.wishListItem) {
+      try {
+        await this.wishList.addItem(this.state.wishListItem);
+      } catch(err) {
+        this.inputAddError = extractErrorMessage(err);
+      }
+      this.setState({wishListItem: ''});
+    }
+  }
+
+  deleteItem(e: CustomEvent) {
+    console.log('deleteItem()...', e);
+    this.wishList.deleteItem(e.detail.item.innerText);
+    this.forceUpdate();
   }
 
 
@@ -71,6 +101,18 @@ class HomeComponent extends React.Component<IProps, IState> {
               Add
             </ui5-button>
           </form>
+        </div>
+
+        <h2>My wish list:</h2>
+        <div>
+          <ui5-list mode="Delete" ref={this.ui5ListRef}>
+            {this.wishList && this.wishList.state &&
+            this.wishList.state.items.map((item) => {
+              return (
+                <ui5-li key={item.name}>{item.name}</ui5-li>
+              );
+            })}
+          </ui5-list>
         </div>
       </div>
     );

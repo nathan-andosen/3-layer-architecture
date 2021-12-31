@@ -1,7 +1,7 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-// import "./../assets/scss/App.scss";
+import "./sign-in.component.scss";
 
 import { DI } from '@thenja/di';
 import { UserService } from '@app-domain/services/user';
@@ -12,49 +12,61 @@ interface IState {
   password: string;
   signinErrorMsg: string;
 };
+interface IProps extends RouteComponentProps {}
 
-interface IProps extends RouteComponentProps {
 
-}
-
+/**
+ * Sign in component
+ *
+ * @class SignInComponent
+ * @extends {React.Component<IProps, IState>}
+ */
 class SignInComponent extends React.Component<IProps, IState> {
   @DI.Inject(UserService)
   private userSrv: UserService;
 
+  /**
+   * Creates an instance of SignInComponent.
+   * 
+   * @param {RouteComponentProps<{}>} props
+   * @memberof SignInComponent
+   */
   constructor(props: RouteComponentProps<{}>) {
     super(props);
-    console.log('1111111', props);
     this.state = {
       username: 'admin',
       password: 'admin',
       signinErrorMsg: ''
     };
-
-    if (this.userSrv.userIsSignedIn()) {
-      this.redirectToHomePage();
-    }
+    if (this.userSrv.userIsSignedIn()) this.redirectToHomePage();
   }
 
+
+  /**
+   * Redirect to home page
+   *
+   * @private
+   * @memberof SignInComponent
+   */
   private redirectToHomePage() {
-    this.props.history.push({
-      pathname: '/'
-    });
+    this.props.history.push({ pathname: '/' });
   }
 
 
+  /**
+   * Handle form submit
+   *
+   * @param {*} event
+   * @memberof SignInComponent
+   */
   async handleSubmit(event) {
-    console.log('Submit form...', this.state);
     this.setState({signinErrorMsg: ''});
     if (this.state.username && this.state.password) {
       try {
         await this.userSrv.signIn(this.state.username, this.state.password);
-        // todo - navigate to home page
-        console.log('222222', this.props);
         this.redirectToHomePage();
       } catch(err) {
-        this.setState({
-          signinErrorMsg: extractErrorMessage(err)
-        });
+        this.setState({ signinErrorMsg: extractErrorMessage(err) });
       }
     } else {
       alert('Please enter a username and password');
@@ -62,7 +74,12 @@ class SignInComponent extends React.Component<IProps, IState> {
   }
 
 
-
+  /**
+   * Render the component
+   *
+   * @returns
+   * @memberof SignInComponent
+   */
   public render() {
     return (
       <div className="sign-in-component">

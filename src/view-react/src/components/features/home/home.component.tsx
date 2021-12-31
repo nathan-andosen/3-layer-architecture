@@ -11,11 +11,15 @@ import { extractErrorMessage } from '@app-services/utils';
 interface IState {
   wishListItem: string;
 };
+interface IProps extends RouteComponentProps {}
 
-interface IProps extends RouteComponentProps {
 
-}
-
+/**
+ * Home component
+ *
+ * @class HomeComponent
+ * @extends {React.Component<IProps, IState>}
+ */
 class HomeComponent extends React.Component<IProps, IState> {
   @DI.Inject(UserService)
   private userSrv: UserService;
@@ -24,6 +28,13 @@ class HomeComponent extends React.Component<IProps, IState> {
   private wishList: WishListModel;
   private inputAddError: string;
 
+
+  /**
+   * Creates an instance of HomeComponent.
+   * 
+   * @param {*} props
+   * @memberof HomeComponent
+   */
   constructor(props: any) {
     super(props);
     this.state = {
@@ -33,6 +44,12 @@ class HomeComponent extends React.Component<IProps, IState> {
     this.ui5ListRef = React.createRef();
   }
 
+
+  /**
+   * Sign out
+   *
+   * @memberof HomeComponent
+   */
   async signout() {
     await this.userSrv.signOut();
     this.props.history.push({
@@ -40,30 +57,44 @@ class HomeComponent extends React.Component<IProps, IState> {
     });
   }
 
+
+  /**
+   * Lifecycle event fired when the component mounts in the dom
+   *
+   * @memberof HomeComponent
+   */
   componentDidMount(): void {
     // react does not work with custom events and web components, so we have
     // to bind to events this way, using refs
     this.inputRef.current.addEventListener('input', (event) => {
       this.setState({wishListItem: event.target['value']});
     });
-
     this.ui5ListRef.current.addEventListener('item-delete', (event) => {
       this.deleteItem(event as CustomEvent);
     });
-
     this.initWishListModel();
   }
 
+
+  /**
+   * Create the wish list model and load the data from the server
+   *
+   * @memberof HomeComponent
+   */
   async initWishListModel() {
     this.wishList = new WishListModel();
     await this.wishList.loadDataFromServer();
-    console.log('wish list', this.wishList.state);
     this.forceUpdate();
   }
 
 
+  /**
+   * Add a wish list item
+   *
+   * @memberof HomeComponent
+   */
   async addItem() {
-    console.log('addItem()...', this.state);
+    this.inputAddError = '';
     if (this.state.wishListItem) {
       try {
         await this.wishList.addItem(this.state.wishListItem);
@@ -74,13 +105,25 @@ class HomeComponent extends React.Component<IProps, IState> {
     }
   }
 
+
+  /**
+   * Delete a wish list item
+   *
+   * @param {CustomEvent} e
+   * @memberof HomeComponent
+   */
   deleteItem(e: CustomEvent) {
-    console.log('deleteItem()...', e);
     this.wishList.deleteItem(e.detail.item.innerText);
     this.forceUpdate();
   }
 
 
+  /**
+   * Render the component
+   *
+   * @returns
+   * @memberof HomeComponent
+   */
   public render() {
     return (
       <div className="Home-component">
@@ -103,14 +146,18 @@ class HomeComponent extends React.Component<IProps, IState> {
           </form>
         </div>
 
+        {this.inputAddError &&
+          <ui5-message-strip design="Negative">
+            {this.inputAddError}
+          </ui5-message-strip>
+        }
+
         <h2>My wish list:</h2>
         <div>
           <ui5-list mode="Delete" ref={this.ui5ListRef}>
             {this.wishList && this.wishList.state &&
             this.wishList.state.items.map((item) => {
-              return (
-                <ui5-li key={item.name}>{item.name}</ui5-li>
-              );
+              return (<ui5-li key={item.name}>{item.name}</ui5-li>);
             })}
           </ui5-list>
         </div>

@@ -8,7 +8,6 @@ import {
 
 import { UserService } from '@app-domain/services/user';
 import { DI } from '@thenja/di';
-
 import { HomeComponent } from "./features/home/home.component";
 import { SignInComponent } from './features/sign-in/sign-in.component';
 import {
@@ -24,19 +23,37 @@ import "@ui5/webcomponents/dist/List";
 import "@ui5/webcomponents/dist/StandardListItem";
 import "@ui5/webcomponents/dist/MessageStrip";
 
+
+/**
+ * Our main app
+ *
+ * @class App
+ * @extends {React.Component<{}, undefined>}
+ */
 class App extends React.Component<{}, undefined> {
   @DI.Inject(UserService)
   userSrv: UserService;
 
   private appHasInitialized = false;
 
+
+  /**
+   * Creates an instance of App.
+   * 
+   * @param {*} props
+   * @memberof App
+   */
   constructor(props: any) {
     super(props);
-
     this.initilizeApp();
   }
 
 
+  /**
+   * Initialize the app, check if the user already has an active session
+   *
+   * @memberof App
+   */
   async initilizeApp() {
     await this.userSrv.checkUserHasSession();
     this.appHasInitialized = true;
@@ -44,6 +61,12 @@ class App extends React.Component<{}, undefined> {
   }
 
 
+  /**
+   * Render the app component
+   *
+   * @returns
+   * @memberof App
+   */
   public render() {
     if (this.appHasInitialized) {
       return (
@@ -63,5 +86,4 @@ class App extends React.Component<{}, undefined> {
 }
 
 declare let module: object;
-
 export default hot(module)(App);

@@ -27,7 +27,31 @@ This will be accomplished via the following necessities:
 ### Benefits
 
 * __Decoupling from the view framework__ - A lot of the code is written outside of the view framework / library (Angular, React, VueJs), making it easier to upgrade or switch to a different view framework. You can see in this example repo, we have three different views (view-angular, view-react, view-vuejs) that all use the same _domain_ and _app-services_ layers. As well, there are many more benefits to [Separation of concern](#separation-of-concern) as you will read below.
-* __Minimal dependencies used__ - We basically only have 2 dependencies: __rxjs__ to handle our ajax requests & reactive state management and our __view framework__. These two dependencies give us a lot of functionality. Keeping dependencies low makes it easier to maintain and upgrade applications. Obviously, as your application grows, you will add more dependencies.
+* __Minimal dependencies used__ - We try to keep our dependencies to a minimal. We use [rxjs](https://rxjs.dev/guide/overview) to handle our ajax requests & reactive state management. We also use a frontend framework for our view, such as [Angular](https://angular.io/), [React](https://reactjs.org/) or [VueJs](https://vuejs.org/). These two dependencies give us a lot of functionality. Keeping dependencies low makes it easier to maintain and upgrade applications. Obviously, as your application grows, you will need to add more dependencies. We also used a component / styling framework ([UI5](https://sap.github.io/ui5-webcomponents/)) that is built with web components so that it can work with any frontend framewor.
+
+# Understanding this Repo & Architecture
+
+_Todo_
+
+This repo has a very basic demo of how the 3 layered architecture is setup and used. 
+
+### How to use
+
+1. Clone the repo
+
+```git clone https://github.com/nathan-andosen/3-layer-architecture```
+
+2. Install dependencies
+
+```npm install```
+
+3. Change into the frontend view directory you want to work on. For example, to see the Angular app:
+
+```cd src/view-angular```
+
+```npm install```
+
+```npm run dev```
 
 # Separation of concern
 
@@ -74,6 +98,7 @@ Horizontal separation is achieved via layers. We will use 3 layers to separate o
 * __Important!__ The domain & application services layer know nothing about the view framework / library in the view layer, do not add view framework specific code in these layers.
 * Try and keep the view layer as thin as possible, only UI related code should go here.
 * Try to keep business logic out of the _app-services_ layer, but it's not required.
+* How you structure your code inside each layer is up to you. For example, in the domain layer, you may structure the code via features, such as a _user_ feature would be structured like: `/app-domain/user/models/*` & `/app-domain/user/services/*`. Or, you may structure it based on the class type, such as: `/app-domain/models/user/*` & `/app-domain/services/user/*`.
 
 ## Vertical separation
 
@@ -140,7 +165,7 @@ _Below is a list of common features / functionality that most web apps have and 
 
 ### React
 
-* You should use Typescript
+* Typescript help
   * https://react-typescript-cheatsheet.netlify.app/
 
 # Glossary

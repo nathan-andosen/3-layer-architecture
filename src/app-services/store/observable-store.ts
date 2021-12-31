@@ -92,7 +92,6 @@ export class ObservableStore<T> {
     if (this._actionHistory.length > this.options.maxHistoryCount) {
       this._actionHistory.shift();
     }
-
     this._actionHistory.push({
       action,
       previousState,

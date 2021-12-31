@@ -1,5 +1,14 @@
 
 
+/**
+ * Wait method
+ *
+ * @export
+ * @param {number} ms
+ * @returns {Promise<void>}
+ */
 export async function wait(ms: number): Promise<void> {
-  setTimeout(() => { return Promise.resolve(); }, ms);
+  return new Promise((resolve) => {
+    setTimeout(() => { resolve(); }, ms);
+  });
 };

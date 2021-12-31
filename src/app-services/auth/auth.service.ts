@@ -10,21 +10,49 @@ import { IUser } from '@app-domain/models/user';
  */
 export class AuthService {
 
-  private saveInSessionStorage(userData: any) {
+  /**
+   * Add user data to session storage
+   *
+   * @private
+   * @param {*} userData
+   * @memberof AuthService
+   */
+  private saveUserInSessionStorage(userData: any) {
     sessionStorage.setItem('user-session', JSON.stringify(userData));
   }
 
+  /**
+   * Get user data from session
+   *
+   * @returns
+   * @memberof AuthService
+   */
   getUserFromSession() {
     const userData = sessionStorage.getItem('user-session');
     if (userData) return JSON.parse(userData);
     return null;
   }
 
+  /**
+   * Sign out a user
+   *
+   * @returns {Promise<void>}
+   * @memberof AuthService
+   */
   signOut(): Promise<void> {
     sessionStorage.removeItem('user-session');
     return Promise.resolve();
   }
 
+
+  /**
+   * Sign in a user
+   *
+   * @param {string} username
+   * @param {string} password
+   * @returns {Promise<ISignInResponse>}
+   * @memberof AuthService
+   */
   signIn(username: string, password: string): Promise<ISignInResponse> {
     return new Promise((resolve, reject) => {
       // fake some api request to a server
@@ -37,7 +65,7 @@ export class AuthService {
             lastname: '',
             behaviour: "nice"
           };
-          this.saveInSessionStorage(userData);
+          this.saveUserInSessionStorage(userData);
           resolve({ user: userData});
         } else {
           resolve({ error: 'Incorrect username or password' });
@@ -45,5 +73,4 @@ export class AuthService {
       }, 500)
     });
   }
-
 }

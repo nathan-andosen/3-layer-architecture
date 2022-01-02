@@ -16,27 +16,18 @@ const routes: Routes = [
     }
   },
   {
-    path: 'tdee',
-    loadChildren: () => import('../../features/tdee-calculator/tdee-calculator.module')
-    .then(m => m.TdeeCalculatorModule),
+    path: 'home',
+    loadChildren: () => import('../../features/home/home-page.module')
+    .then(m => m.HomePageModule),
     canActivate: [AuthGuard],
     data: {
-      name: 'tdee'
-    }
-  },
-  {
-    path: 'clients',
-    loadChildren: () => import('../../features/manage-clients/manage-clients.module')
-    .then(m => m.ManageClientsModule),
-    canActivate: [AuthGuard],
-    data: {
-      name: 'clients'
+      name: 'home'
     }
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

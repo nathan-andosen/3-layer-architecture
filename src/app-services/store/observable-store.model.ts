@@ -2,6 +2,14 @@ import { ObservableStore } from './observable-store';
 import { Observable } from 'rxjs';
 
 
+/**
+ * Models can extend this class and will get a reactive state via observables
+ *
+ * @export
+ * @abstract
+ * @class ObservableStoreModel
+ * @template T
+ */
 export abstract class ObservableStoreModel<T> {
   protected store: ObservableStore<T>;
 

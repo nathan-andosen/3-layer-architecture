@@ -1,6 +1,12 @@
 import { isString } from './validation';
 
-export const extractErrorMessage = (err: any) => {
+/**
+ * Extract an error message from a thrown error
+ *
+ * @param {*} err
+ * @returns {string}
+ */
+export const extractErrorMessage = (err: any): string => {
   let errorMsg = 'Unexpected error.';
   if (isString(err)) {
     errorMsg = err;

@@ -6,7 +6,7 @@ import {
   Router
 } from '@angular/router';
 
-import { UserService } from '@domain/services/user';
+import { UserService } from '@app-domain/services/user';
 
 
 /**
@@ -44,7 +44,6 @@ export class AuthGuard implements CanActivate {
    */
   checkLogin(): boolean {
     if (this.userSrv.userIsSignedIn()) { return true; }
-
     // Navigate to the sign in page
     this.router.navigate(['/user/signin']);
     return false;

@@ -1,8 +1,4 @@
 ## Currently working on:
 
-* Seleting a client to edit
-
-# TODO
-
-* Create, update and delete clients
-* 
+* Get weather from a real public api
+* Update readme docs

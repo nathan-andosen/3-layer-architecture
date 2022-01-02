@@ -78,9 +78,10 @@ export class ObservableStore<T> {
   /**
    * Patch the existing state with new properties
    */
-  patchState(patchState: Partial<T>, action?: string): void {
+  patchState(patchState: Partial<T>, action?: string): T {
     const newData = this.deepCloneAndPatch(this.state, patchState);
     this.setState(newData, action);
+    return this.state;
   }
 
 
@@ -91,7 +92,6 @@ export class ObservableStore<T> {
     if (this._actionHistory.length > this.options.maxHistoryCount) {
       this._actionHistory.shift();
     }
-
     this._actionHistory.push({
       action,
       previousState,
@@ -128,8 +128,12 @@ export class ObservableStore<T> {
   private mergeRecusive(obj1: any, patch: any) {
     for (const key in patch) {
       if (patch.hasOwnProperty(key)) {
-        if (typeof obj1[key] === 'undefined'
-        || patch[key].constructor !== {}.constructor) {
+        if (typeof obj1[key] === 'undefined') {
+          obj1[key] = patch[key];
+        } else if (Array.isArray(patch[key])) {
+          if (!obj1[key]) obj1[key] = [];
+          obj1[key] = obj1[key].concat(patch[key]);
+        } else if (patch[key].constructor !== {}.constructor) {
           obj1[key] = patch[key];
         } else {
           this.mergeRecusive(obj1[key], patch[key]);

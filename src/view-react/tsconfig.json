@@ -10,7 +10,7 @@
         "lib": ["es5", "es6", "dom"],
         "baseUrl": "./",
         "paths": {
-            "@domain/*": ["../domain/*"],
+            "@app-domain/*": ["../app-domain/*"],
             "@app-services/*": ["../app-services/*"]
         }
     },

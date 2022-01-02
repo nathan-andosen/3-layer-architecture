@@ -1,64 +1,21 @@
 import { ajax } from 'rxjs/ajax';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { DI } from '@thenja/di';
+import { wait } from '../utils';
 
-import { DummyLocalStorageService } from './dummy-local-storage.service';
-
-import {
-  EventManager,
-  IEvent,
-  IEventCallbackFn
-} from '../event-manager';
-
-// our ajax request service events
-export const AJAX_REQUEST_EVENTS = {
-  FETCH_JWT_TOKEN: {
-    name: 'fetch-jwt-token',
-    singleSubscriber: true,
-    throwErrorIfNoSubscriber: true
-  } as IEvent
-};
-
-
-interface IFetchJwtToken {
-  jwtToken: string;
-}
 
 
 /**
- * Service to make API requests using RxJs Ajax
+ * Service to make API requests to servers using RxJs Ajax
  *
  * @export
  * @class AjaxRequestService
  */
 export class AjaxRequestService {
-  @DI.Inject(DummyLocalStorageService)
-  private dummyLocalStorageSrv: DummyLocalStorageService;
-
-  // keep the event manager private, we will add our own on() off() methods to
-  // the service itself
-  private events: EventManager;
-
-  constructor() {
-    this.events = new EventManager();
-  }
-
-  on(event: IEvent, fn: IEventCallbackFn) {
-    this.events.on(event, fn);
-  }
-
-  off(event: IEvent, fn: IEventCallbackFn) {
-    this.events.off(event, fn);
-  }
-
 
   private async getHttpHeaders(): Promise<any> {
-    const data: IFetchJwtToken = await this.events
-    .emit(AJAX_REQUEST_EVENTS.FETCH_JWT_TOKEN);
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + data.jwtToken 
+      'Content-Type': 'application/json'
     };
     return headers;
   };
@@ -67,21 +24,22 @@ export class AjaxRequestService {
   async get(endPointUrl: string): Promise<any> {
     const headers = await this.getHttpHeaders();
     // normally we would make an ajax request to a server, for demo purposes,
-    // we just use a dummy local storage service
-    if (endPointUrl === '/clients/fetch') {
-      return this.dummyLocalStorageSrv.getClients();
+    // we just use local storage
+    if (endPointUrl === '/wishlist/fetch') {
+      await wait(500);
+      let data = window.localStorage.getItem('wish-list');
+      if (!data) {
+        data = '{ "title": "Christmas wish list", "items": [] }';
+        window.localStorage.setItem('wish-list', data);
+      }
+      return JSON.parse(data);
     }
     return null;
   }
 
 
-  async post(endPointUrl: string, requestData?: any): Promise<any> {
+  async post(endPointUrl: string, postData?: any): Promise<any> {
     const headers = await this.getHttpHeaders();
-    // normally we would make an ajax request to a server, for demo purposes,
-    // we just use a dummy local storage service
-    if (endPointUrl === '/client/create') {
-      return this.dummyLocalStorageSrv.createClient(requestData);
-    }
     return null;
   }
 
@@ -89,11 +47,26 @@ export class AjaxRequestService {
 
   }
 
-  patch() {
-
+  async patch(endPointUrl: string, patchData?: any): Promise<any> {
+    const headers = await this.getHttpHeaders();
+    // normally we would make an ajax request to a server, for demo purposes,
+    // we just use local storage
+    if (endPointUrl === '/wishlist/update') {
+      await wait(500);
+      if (patchData) {
+        window.localStorage.setItem('wish-list', JSON.stringify(patchData));
+      }
+      return null;
+    }
+    return null;
   }
 
   delete() {
+
+  }
+
+
+  async realGet() {
 
   }
 

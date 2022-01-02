@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  align-items: center;
+  h1 {
+    flex-grow: 1;
+  }
+}
+
+.add-to-wish-list-container {
+  ui5-label {
+    display: block;
+  }
+
+  > form {
+    display: flex;
+    ui5-button {
+      margin-left: 1em;
+    }
+  }
+}
+
+ui5-message-strip {
+  margin-top: 1em;
+}

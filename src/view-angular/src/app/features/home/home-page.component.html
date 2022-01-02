@@ -1,0 +1,30 @@
+<div>
+  <header>
+    <h1>Christmas wish list</h1>
+    <ui5-button (click)="signout()">Sign out</ui5-button>
+  </header>
+  
+  <div class="add-to-wish-list-container">
+    <ui5-label for="myInput">Add to wish list:</ui5-label>
+    <form (keydown)="$event.code === 'Enter' ? addItem() : null">
+      <ui5-input [value]="wishListItem"
+      (input)="wishListItem = $event.target.value" required></ui5-input>
+      <ui5-button icon="add" (click)="addItem()" design="Emphasized">
+        Add
+      </ui5-button>
+    </form>
+  </div>
+
+  <div *ngIf="inputAddError">
+    <ui5-message-strip design="Negative">{{inputAddError}}</ui5-message-strip>
+  </div>
+
+  <h2>My wish list:</h2>
+  <div *ngIf="wishList && wishList.state">
+    <ui5-list mode="Delete" (item-delete)="deleteItem($event)">
+      <ui5-li *ngFor="let item of wishList.state.items">
+        {{ item.name }}
+      </ui5-li>
+    </ui5-list>
+  </div>
+</div>

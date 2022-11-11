@@ -57,7 +57,11 @@ export class WishListModel extends ObservableStoreModel<IWishList> {
     const preState = this.state;
     const newState = this.store.patchState({ items: [{ name: name }] });
     try { 
-      await this.apiSrv.wishList.update(newState);
+      // pessimistic save, wait for response from server
+      // await this.apiSrv.wishList.update(newState);
+
+      // optimistic save, assume it will save in the server
+      this.apiSrv.wishList.update(newState);
     } catch (err) {
       // something went wrong, we need to revert the state back
       this.store.setState(preState, 'undo');

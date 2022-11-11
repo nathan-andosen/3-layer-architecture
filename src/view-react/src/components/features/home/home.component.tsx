@@ -5,7 +5,7 @@ import "./home.component.scss";
 
 import { DI } from '@thenja/di';
 import { UserService } from '@app-domain/services/user';
-import { WishListModel } from '@app-domain/models/wish-list';
+import { WishListModel, WishListFactory } from '@app-domain/models/wish-list';
 import { extractErrorMessage } from '@app-services/utils';
 
 interface IState {
@@ -23,6 +23,8 @@ interface IProps extends RouteComponentProps {}
 class HomeComponent extends React.Component<IProps, IState> {
   @DI.Inject(UserService)
   private userSrv: UserService;
+  @DI.Inject(WishListFactory)
+  private wishListFactory!: WishListFactory;
   private inputRef: React.RefObject<HTMLElement>;
   private ui5ListRef: React.RefObject<HTMLElement>;
   private wishList: WishListModel;
@@ -82,7 +84,7 @@ class HomeComponent extends React.Component<IProps, IState> {
    * @memberof HomeComponent
    */
   async initWishListModel() {
-    this.wishList = new WishListModel();
+    this.wishList = this.wishListFactory.create();
     await this.wishList.loadDataFromServer();
     this.forceUpdate();
   }
